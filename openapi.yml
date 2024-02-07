@@ -219,9 +219,8 @@ components:
           example: 0
           description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
         tag_id:
-          type: array
-          items:
-            $ref: '#/components/schemas/tags'
+          type: integer
+          example: 1
         latitude:
           type: number
           format: double
