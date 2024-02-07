@@ -28,7 +28,8 @@ paths:
             application/json:
               schema:
                 type: array
-                $ref: '#/components/schemas/place'
+                items:
+                  $ref: '#/components/schemas/place'
         400:
           description: Invalid status value
           content: {}
@@ -155,7 +156,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/place'
+                type: array
+                items:
+                  $ref: '#/components/schemas/place'
         400:
           description: Invalid status value
           content: {}
