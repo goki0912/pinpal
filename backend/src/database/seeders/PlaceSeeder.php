@@ -17,7 +17,8 @@ class PlaceSeeder extends Seeder
             'name' => 'Place 1',
             'status' => 0,
             'tag_id' => 1,
-            'address' => 'Address 1',
+            'latitude' => '34.686555',
+            'longitude' => '135.52000',
             'date' => '2024-02-15'
         ]);
 
@@ -25,7 +26,8 @@ class PlaceSeeder extends Seeder
             'name' => 'Place 2',
             'status' => 1,
             'tag_id' => 2,
-            'address' => 'Address 2',
+            'latitude' => '43.0686',
+            'longitude' => '141.350784',
             'date' => '2024-02-16'
         ]);
 
@@ -33,7 +35,8 @@ class PlaceSeeder extends Seeder
             'name' => 'Place 3',
             'status' => 2,
             'tag_id' => 3,
-            'address' => 'Address 3',
+            'latitude' => '-34.686555',
+            'longitude' => '-135.52000',
             'date' => '2024-03-17'
         ]);
 
@@ -41,7 +44,8 @@ class PlaceSeeder extends Seeder
             'name' => 'Place 4',
             'status' => 0,
             'tag_id' => 4,
-            'address' => 'Address 4',
+            'latitude' => '-43.0686',
+            'longitude' => '-141.350784',
             'date' => '2024-02-18'
         ]);
 
@@ -49,7 +53,8 @@ class PlaceSeeder extends Seeder
             'name' => 'Place 5',
             'status' => 1,
             'tag_id' => 5,
-            'address' => 'Address 5',
+            'latitude' => '50.686555',
+            'longitude' => '100.52000',
             'date' => '2024-02-19'
         ]);
 
