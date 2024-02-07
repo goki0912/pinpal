@@ -176,10 +176,10 @@ components:
         id:
           type: integer
           example: 1
-        content:
+        name:
           type: string
           example: "三重県に旅行行く"
-        status_id:
+        status:
           type: integer
           example: 0
           description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
