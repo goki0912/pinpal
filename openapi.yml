@@ -1,0 +1,245 @@
+openapi: 3.0.3
+
+info:
+  title: Geek Camp API 
+  description: 技育キャンプハッカソンのAPI仕様書
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:80/api
+    description: "ローカル環境"
+
+tags: 
+  - name: todos
+    description: TODOに関するAPI
+
+paths:
+#=================== todos ======================#
+  /todos:
+    get:
+      summary: todo一覧を取得
+      tags:
+        - todos
+      deprecated: false
+      responses:
+        200:
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+        400:
+          description: Invalid status value
+          content: {}
+
+    post:
+      summary: todoを作成
+      tags:
+        - todos
+      deprecated: false
+      requestBody:
+        description: 作成するtodo情報
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "三重県に旅行行く"
+                status_id:
+                  type: integer
+                  example: 0
+                  description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
+                tag_id:
+                  type: integer
+                  example: 1
+                address:
+                  type: string
+                  example: "三重県伊勢市宇治館町１"
+                date:
+                  type: string
+                  example: '2023-10-13'
+                  format: date
+
+      responses:
+        201:
+          description: "成功"
+        400:
+          description: Invalid status value
+          content: {}
+
+  /todos/{id}:
+    put:
+      summary: 指定したIDのtodoを更新
+      tags:
+        - todos
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: todo_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        description: 更新するtodo情報
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "三重県に旅行行く"
+                status_id:
+                  type: integer
+                  example: 0
+                  description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
+                tag_id:
+                  type: integer
+                  example: 1
+                address:
+                  type: string
+                  example: "三重県伊勢市宇治館町１"
+                date:
+                  type: string
+                  example: '2023-10-13'
+                  format: date
+      responses:
+        200:
+          description: "成功"
+        400:
+          description: Invalid status value
+          content: {}
+
+    delete:
+      summary: 指定したIDのtodoを削除
+      tags:
+        - todos
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: todo_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: 'No Content'
+        '404':
+          description: 'Not Found'
+
+  /todos/{tag_id}:
+    get:
+      summary: 指定したタグIDのtodoを取得
+      tags:
+        - todos
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: tag_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+        400:
+          description: Invalid status value
+          content: {}
+
+  /todos/{id}/{status_id}/status:
+    patch:
+      summary: todoステータスを更新
+      tags:
+        - todos
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: todo_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+        - name: status_id
+          in: path
+          description: status_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        description: 更新するステータス情報
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_id:
+                  type: integer
+                  example: 2
+      responses:
+        200:
+          description: "成功"
+        400:
+          description: Invalid status value
+          content: {}
+
+
+components:
+  schemas:
+    Todos:
+      type: array
+      items:
+        $ref: '#/components/schemas/Todo'
+
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "三重県に旅行行く"
+        status_id:
+          type: integer
+          example: 0
+          description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
+        tag_id:
+          type: array
+          items:
+            $ref: '#/components/schemas/tags'
+        address:
+          type: string
+          example: "三重県伊勢市宇治館町１"
+        date:
+          type: string
+          example: '2023-10-13'
+          format: date
+
+    tags:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "一人旅"
+        color:
+          type: string
+          example: "#FF0000"
