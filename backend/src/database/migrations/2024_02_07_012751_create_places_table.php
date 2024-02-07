@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('status');
             $table->integer('tag_id');
-            $table->number('latitude')->comment('緯度');
-            $table->number('longitude')->comment('経度');
+            $table->decimal('latitude', 10, 8)->comment('緯度');
+            $table->decimal('longitude', 11, 8)->comment('経度');
             $table->date('date')->nullable();
             $table->timestamps();
             $table->softDeletes();
