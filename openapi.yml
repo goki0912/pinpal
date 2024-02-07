@@ -46,24 +46,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                content:
-                  type: string
-                  example: "三重県に旅行行く"
-                status_id:
-                  type: integer
-                  example: 0
-                  description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
-                tag_id:
-                  type: integer
-                  example: 1
-                address:
-                  type: string
-                  example: "三重県伊勢市宇治館町１"
-                date:
-                  type: string
-                  example: '2023-10-13'
-                  format: date
+              $ref: '#/components/schemas/place' 
 
       responses:
         201:
@@ -93,24 +76,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                content:
-                  type: string
-                  example: "三重県に旅行行く"
-                status_id:
-                  type: integer
-                  example: 0
-                  description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
-                tag_id:
-                  type: integer
-                  example: 1
-                address:
-                  type: string
-                  example: "三重県伊勢市宇治館町１"
-                date:
-                  type: string
-                  example: '2023-10-13'
-                  format: date
+              $ref: '#/components/schemas/place'
       responses:
         200:
           description: "成功"
@@ -157,8 +123,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/place'
+                $ref: '#/components/schemas/place'
         400:
           description: Invalid status value
           content: {}
