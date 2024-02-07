@@ -226,10 +226,12 @@ components:
           type: number
           format: double
           description: 緯度
+          example: 34.686555
         longitude:
           type: number
           format: double
           description: 経度
+          example: 141.350784
         date:
           type: string
           example: '2023-10-13'
