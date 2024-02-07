@@ -27,6 +27,7 @@ paths:
           content:
             application/json:
               schema:
+                type: array
                 $ref: '#/components/schemas/places'
         400:
           description: Invalid status value
