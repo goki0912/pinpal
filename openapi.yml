@@ -222,9 +222,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tags'
-        address:
-          type: string
-          example: "三重県伊勢市宇治館町１"
+        latitude:
+          type: number
+          format: double
+          description: 緯度
+        longitude:
+          type: number
+          format: double
+          description: 経度
         date:
           type: string
           example: '2023-10-13'
