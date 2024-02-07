@@ -15,7 +15,8 @@ class Place extends Model
         'name',
         'status',
         'tag_id',
-        'address',
+        'latitude',
+        'longitude',
         'date'
     ];
 
