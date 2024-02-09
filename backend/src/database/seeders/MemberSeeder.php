@@ -13,38 +13,21 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        Member::create([
-            'group_id' => 1,
-            'email' => 'yamada@example.com'
-        ]);
-        Member::create([
-            'group_id' => 1, // 存在するgroup_idを指定
-            'email' => 'tanaka@example.com'
-        ]);
-        Member::create([
-            'group_id' => 2, // 存在するgroup_idを指定
-            'email' => 'suzuki@example.com'
-        ]);
-        Member::create([
-            'group_id' => 2, // 存在するgroup_idを指定
-            'email' => 'sato@example.com'
-        ]);
-        Member::create([
-            'group_id' => 3,
-            'email' => 'iwagi@example.com'
-        ]);
-        Member::create([
-            'group_id' => 3,
-            'email' => 'kanno@example.com'
-        ]);
-        Member::create([
-            'group_id' => 3,
-            'email' => 'tsukakoshi@example.com'
-        ]);
-        Member::create([
-            'group_id' => 3,
-            'email' => 'ueno@example.com'
-        ]);
+
+        $membersEmails = [
+            'yamada@example.com',
+            'tanaka@example.com',
+            'suzuki@example.com',
+            'sato@example.com',
+            'iwagi@example.com',
+            'kanno@example.com'
+        ];
+
+        foreach ($membersEmails as $email) {
+            Member::create([
+                'group_id' => rand(1, 5),
+                'email' => $email
+            ]);
+        }
     }
 }
