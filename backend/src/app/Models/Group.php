@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tag extends Model
+class Group extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,5 +19,9 @@ class Tag extends Model
     public function places()
     {
         return $this->hasMany(Place::class);
+    }
+    public function members()
+    {
+        return $this->hasMany(Member::class, 'group_id');
     }
 }
