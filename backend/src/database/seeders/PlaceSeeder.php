@@ -16,7 +16,7 @@ class PlaceSeeder extends Seeder
         Place::create([
             'name' => 'Place 1',
             'status' => 0,
-            'tag_id' => 1,
+            'group_id' => 1,
             'latitude' => '34.686555',
             'longitude' => '135.52000',
             'date' => '2024-02-15'
@@ -25,7 +25,7 @@ class PlaceSeeder extends Seeder
         Place::create([
             'name' => 'Place 2',
             'status' => 1,
-            'tag_id' => 2,
+            'group_id' => 2,
             'latitude' => '43.0686',
             'longitude' => '141.350784',
             'date' => '2024-02-16'
@@ -34,7 +34,7 @@ class PlaceSeeder extends Seeder
         Place::create([
             'name' => 'Place 3',
             'status' => 2,
-            'tag_id' => 3,
+            'group_id' => 3,
             'latitude' => '-34.686555',
             'longitude' => '-135.52000',
             'date' => '2024-03-17'
@@ -43,7 +43,7 @@ class PlaceSeeder extends Seeder
         Place::create([
             'name' => 'Place 4',
             'status' => 0,
-            'tag_id' => 4,
+            'group_id' => 4,
             'latitude' => '-43.0686',
             'longitude' => '-141.350784',
             'date' => '2024-02-18'
@@ -52,7 +52,7 @@ class PlaceSeeder extends Seeder
         Place::create([
             'name' => 'Place 5',
             'status' => 1,
-            'tag_id' => 5,
+            'group_id' => 5,
             'latitude' => '50.686555',
             'longitude' => '100.52000',
             'date' => '2024-02-19'

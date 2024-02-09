@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tag;
+use App\Models\Group;
 
-class TagSeeder extends Seeder
+class GroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,28 +14,28 @@ class TagSeeder extends Seeder
     public function run(): void
     {
 
-        Tag::create([
-            'name' => 'ランチ',
+        Group::create([
+            'name' => '高校の友達',
             'color' => '#FF0000'
         ]);
 
-        Tag::create([
-            'name' => 'カフェ',
+        Group::create([
+            'name' => 'バイト先の仲間',
             'color' => '#00FF00'
         ]);
 
-        Tag::create([
-            'name' => 'ディナー',
+        Group::create([
+            'name' => '学科の友達',
             'color' => '#0000FF'
         ]);
 
-        Tag::create([
-            'name' => '観光',
+        Group::create([
+            'name' => 'サークルの仲間',
             'color' => '#FFFF00'
         ]);
 
-        Tag::create([
-            'name' => 'ショッピング',
+        Group::create([
+            'name' => '部活の仲間',
             'color' => '#00FFFF'
         ]);
     }
