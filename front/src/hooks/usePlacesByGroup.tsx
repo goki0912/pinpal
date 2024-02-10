@@ -1,11 +1,11 @@
-import { getPlaces } from '@/pages/api/places';
+import { getPlacesByGroup } from '@/pages/api/places';
 import React, { useState , useEffect } from "react";
 import { Places } from '@/types/places';   
 
-export const usePlaces = () => {
+export const usePlacesByGroup = (id: number) => {
     const [ places, setPlaces ] = useState<Places[]>([]);
     const fetchPlaces = async () => {
-        const Places = await getPlaces();
+        const Places = await getPlacesByGroup(id);
         setPlaces(Places);
     }
 
