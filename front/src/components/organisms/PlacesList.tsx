@@ -3,16 +3,25 @@ import Title from '../molecules/Title';
 import Place from '../molecules/Place';
 import MenuButton from '../atoms/MenuButton';
 import CreatePlace from '../molecules/CreatePlace';
+import React, { useState } from 'react';
+import CreatePlaceForm from './CreatePlaceForm';
+import { useEffect } from 'react';
 
 interface PlaceListProps {
     places: PlaceType[];
     onClick?: (id: number) => void;
     onMove?: (id: number)=> void;
+    visible: boolean;
+    onChangeVisible: () => void;
 }
 
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { // propsを正しく展開する
+
+
+const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible}) => {
+
     return (
-      <div className='z-20'>
+      
+      <div className='z-20' style={{display: visible ? "block" : "none"}}>
         <div className="flex items-center justify-between p-3">
           <Title title="Places I Want to Go" subtitle="行きたい場所をストックしよう！" />
           <MenuButton onClick={() => console.log("Menu button clicked")} />
@@ -26,7 +35,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { /
                 onMove={() => console.log('Moved place id:', place.id)}
             />
         ))}
-        <CreatePlace onClick={() => console.log('Create place clicked')} />
+        <CreatePlace onClick={onChangeVisible} />
       </div>
     );
 }
