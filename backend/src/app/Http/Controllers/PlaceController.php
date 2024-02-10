@@ -13,6 +13,12 @@ class PlaceController extends Controller
       return $places;
     }
 
+    public function getPlaceById($id)
+    {
+      $place = Place::where('group_id', $id)->with('group')->get();
+      return $place;
+    }
+    
     public function createPlace(Request $request)
     {
       $date = $request->date;
