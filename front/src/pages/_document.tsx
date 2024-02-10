@@ -1,13 +1,26 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-export default function Document() {
-  return (
-    <Html lang="en">
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
+class MyDocument extends Document {
+    render() {
+        const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
+        return (
+            <Html>
+                <Head>
+                    {googleMapsApiKey && (
+                        <script
+                            async
+                            src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&v=beta&libraries=marker&callback=initMap`}
+                        />
+                    )}
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
+    }
 }
+
+export default MyDocument;
