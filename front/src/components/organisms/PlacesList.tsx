@@ -6,14 +6,20 @@ import PlaceAlert from '@/components/molecules/PlaceAlert';
 import { useUpdateStatus } from '@/hooks/useUpdateStatus';
 import MenuButton from '../atoms/MenuButton';
 import CreatePlace from '../molecules/CreatePlace';
+import CreatePlaceForm from './CreatePlaceForm';
+import { useEffect } from 'react';
 
 interface PlaceListProps {
-  places: PlaceType[];
-  onClick?: (id: number) => void;
-  onMove?: (id: number) => void;
+    places: PlaceType[];
+    onClick?: (id: number) => void;
+    onMove?: (id: number)=> void;
+    visible: boolean;
+    onChangeVisible: () => void;
 }
 
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { // 仮のデータ
+
+
+const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
 
@@ -28,8 +34,13 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { /
       setShowAlert(false);
     }
   };
+
+
+
+
+
   return (
-    <div className='z-20'>
+    <div className='z-20' style={{display: visible ? "block" : "none"}}>
       <div className="flex items-center justify-between p-3">
         <Title title="Places I Want to Go" subtitle="行きたい場所をストックしよう！" />
         <MenuButton onClick={() => console.log("Menu button clicked")} />
@@ -50,7 +61,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { /
           onClose={() => setShowAlert(false)}
         />
       )}
-      <CreatePlace onClick={() => console.log('Create place clicked')} />
+      <CreatePlace onClick={onChangeVisible} />
     </div>
   );
 }
