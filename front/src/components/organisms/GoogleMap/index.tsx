@@ -14,18 +14,16 @@ const GoogleMap: React.FC = () => {
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [mapSize, setMapSize] = useState({
         width: '100vw', 
-        height: '100vh' 
+        height: '90vh' 
     });
     useEffect(() => {
         const handleResize = () => {
             setMapSize({
                 width: `${window.innerWidth}px`,
-                height: `${window.innerHeight}px`
+                height: `${window.innerHeight-100}px`
             });
         };
-
         handleResize();
-
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
@@ -64,8 +62,9 @@ const GoogleMap: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <div ref={mapRef} style={{ width: mapSize.width, height: mapSize.height }} />
+        <div className='h-full w-full'>
+            <div className='top-0 fixed relative' ref={mapRef} style={{ width: mapSize.width, height: mapSize.height }} />
+            <div className="flex justify-center bg-white h-2"></div>
         </div>
     )
 }

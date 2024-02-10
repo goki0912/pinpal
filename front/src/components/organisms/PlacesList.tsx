@@ -12,7 +12,7 @@ interface PlaceListProps {
 
 const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { // propsを正しく展開する
     return (
-      <div className='z-20'>
+      <div className='block w-full bg-white absolute z-20'>
         <div className="flex items-center justify-between p-3">
           <Title title="Places I Want to Go" subtitle="行きたい場所をストックしよう！" />
           <MenuButton onClick={() => console.log("Menu button clicked")} />
