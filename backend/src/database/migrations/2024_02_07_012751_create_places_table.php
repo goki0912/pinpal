@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('group_id');
             $table->decimal('latitude', 10, 8)->comment('緯度');
             $table->decimal('longitude', 11, 8)->comment('経度');
-            $table->date('date')->nullable();
+            $table->json('date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
