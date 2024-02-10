@@ -4,7 +4,6 @@ import GoogleMap from '@/components/organisms/GoogleMap';
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
   return (
     <main>
       <GoogleMap />
