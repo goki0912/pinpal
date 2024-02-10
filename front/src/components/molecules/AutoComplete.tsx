@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
 interface AutocompleteProps {
+  name : string;
+  form_name : string;
   onSelectPlace: (lat: number, lng: number) => void;
 }
 
-const Autocomplete: React.FC<AutocompleteProps> = ({ onSelectPlace }) => {
+const Autocomplete: React.FC<AutocompleteProps> = ({name, form_name, onSelectPlace }) => {
   const inputRef = useRef(null); // input要素への参照を保持
 
   useEffect(() => {
@@ -40,8 +42,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onSelectPlace }) => {
 
   return (
     <div className="m-5">
+    <label className="block mb-2 text-sm font-medium text-gray-900">{name}</label>
     <input
       ref={inputRef} 
+      name={form_name}
       id="pac-input"
       className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
       type="text"
