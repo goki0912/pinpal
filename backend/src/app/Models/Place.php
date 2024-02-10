@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Place extends Model
@@ -14,7 +15,7 @@ class Place extends Model
     protected $fillable = [
         'name',
         'status',
-        'tag_id',
+        'group_id',
         'latitude',
         'longitude',
         'date'
@@ -24,11 +25,9 @@ class Place extends Model
     const GOING = 1;
     const GONE = 2;
 
-    public function tag()
+    public function group() : BelongsTo
     {
-        return $this->belongsTo(Tag::class);
+        return $this->belongsTo(Group::class, 'group_id');
     }
-
-
 
 }

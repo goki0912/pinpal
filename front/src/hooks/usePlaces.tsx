@@ -11,7 +11,7 @@ export const usePlaces = () => {
 
     useEffect(() => {
         fetchPlaces();
-    }, [fetchPlaces]);
+    }, []);
 
     return places;
 };
