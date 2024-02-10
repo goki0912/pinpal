@@ -6,6 +6,7 @@ import PlaceAlert from '@/components/molecules/PlaceAlert';
 import { useUpdateStatus } from '@/hooks/useUpdateStatus';
 import MenuButton from '../atoms/MenuButton';
 import CreatePlace from '../molecules/CreatePlace';
+import { animateScroll as scroll } from 'react-scroll';
 import CreatePlaceForm from './CreatePlaceForm';
 import { useEffect } from 'react';
 
@@ -15,15 +16,18 @@ interface PlaceListProps {
     onMove?: (id: number)=> void;
     visible: boolean;
     onChangeVisible: () => void;
+    onPlaceSelect: (latitude: number, longitude: number) => void;
 }
 
 
 
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible}) => {
+const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
+  const [clicked,setClicked] = useState(false);
 
-  const handleMoveClick = (id: number) => {
+  const handleMap = (id: number) => {
+    console.log('Clicked place idmove:', id);
     setSelectedPlaceId(id);
     setShowAlert(true);
   };
@@ -32,12 +36,24 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
     if (selectedPlaceId != null ) {
       await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
+      setClicked(false);
     }
   };
 
-
-
-
+  const handleMoveClick = (id:number,latitude:number,longitude:number) => {
+    if(clicked){
+        return;
+    }
+    setClicked(false);
+    setShowAlert(false);
+    onPlaceSelect(latitude, longitude)
+    console.log('Clicked place id:map', id,latitude,longitude)
+    scroll.scrollToTop();
+  }
+  const onClosed = () => {
+    setShowAlert(false);
+    setClicked(false);
+}
 
   return (
     <div className='z-20' style={{display: visible ? "block" : "none"}}>
@@ -50,15 +66,15 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <Place
           key={place.id}
           place={place}
-          onClick={() => console.log('Clicked place id:', place.id)}
-          onMove={() => handleMoveClick(place.id)}
+          onClick={()=>handleMap(place.id)}
+          onMove={() => handleMoveClick(place.id,place.latitude,place.longitude)}
         />
       ))}
       {showAlert && (
         <PlaceAlert
           place={places.find(place => place.id === selectedPlaceId)?.name || ''}
           onOpen={handleConfirmYes}
-          onClose={() => setShowAlert(false)}
+          onClose={onClosed}
         />
       )}
       <CreatePlace onClick={onChangeVisible} />

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 interface PlaceProps {
   place: Place;
-  onClick: () => void;
+  onClick: (id: number, latitude: number, longitude: number) => void;
   // 確認モーダル表示
   onMove: () => void;
   // mapに移動する関数を追加
