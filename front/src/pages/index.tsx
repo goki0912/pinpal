@@ -11,19 +11,6 @@ import CreatePlaceForm from '@/components/organisms/CreatePlaceForm';
 
 export default function Home() {
   const allPlace = usePlaces();
-  const [placesListHeight, setPlacesListHeight] = useState('0vh');
-  useEffect(() => {
-    const handleScroll = () => {
-      console.log(window.scrollY);
-      // ビューポートの高さに基づいて、スクロール量に応じた高さを計算
-      const newHeight = Math.max(0, window.scrollY - window.innerHeight) + 'px';
-      setPlacesListHeight(newHeight);
-    };
-    // スクロールイベントリスナーを追加
-    window.addEventListener('scroll', handleScroll);
-    // クリーンアップ関数
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   
   return (
     <main>
