@@ -10,7 +10,7 @@ class MyDocument extends Document {
                     {googleMapsApiKey && (
                         <script
                             async
-                            src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
+                            src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&v=beta&libraries=marker&callback=initMap`}
                         />
                     )}
                 </Head>
