@@ -63,7 +63,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
         <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
         <GroupMenu groups={groups} setValue={setValue}/>
         <MailCheckbox onClick={handleMailCheckboxClick} show={showDatePicker}/>
-        {showDatePicker && ( // 条件付きレンダリング
+        {showDatePicker && (
           <Controller
             name="date" 
             control={control} 
