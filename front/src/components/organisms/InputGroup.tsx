@@ -14,7 +14,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ title, subtitle }) => {
   return (
     <div className="flex flex-col">
       <Title title={title} subtitle={subtitle} />
-      <div className="flex gap-x-4 mx-6">
+      <div className="flex gap-x-4 mx-6 mb-5 items-center">
         <ColorPicker />
         <InputGroupName name="家族と" />
       </div>
