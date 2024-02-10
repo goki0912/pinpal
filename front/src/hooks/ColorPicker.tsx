@@ -24,9 +24,9 @@ const ColorPicker = () => {
   };
 
   return (
-    <div>
+    <div className="flex items-center">
       <div className="p-1 bg-white rounded shadow cursor-pointer inline-block" onClick={handleClick}>
-        <div className="w-7 h-4 rounded" style={{ background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }} />
+        <div className="w-7 h-8 rounded" style={{ background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }} />
       </div>
       {displayColorPicker && (
         <div className="absolute z-20">
