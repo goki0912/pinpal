@@ -4,6 +4,7 @@ import CreatePlace from '../molecules/CreatePlace';
 import Title from '../molecules/Title';
 import Input from '../molecules/Input';
 import MailCheckbox from '../molecules/MailCheckbox';
+import GroupMenu from '../molecules/GroupMenu';
 import Button from '../atoms/Button';
 import Autocomplete from '@/components/molecules/AutoComplete';
 
