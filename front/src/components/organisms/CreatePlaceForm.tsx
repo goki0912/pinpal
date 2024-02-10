@@ -25,14 +25,17 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
   const { control, handleSubmit, getValues, setValue, register } = useForm<PlacesPost>();
 
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
-  console.log(location);
 
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
 
   const onSubmit = async (data: any) => {
-    // getValuesを使用して、react-hook-formから最新のフォームデータを取得
+    const group_id = getValues('group_id');
+    setValue('latitude', location.lat);
+    setValue('longitude', location.lng);
+    setValue('group_id', group_id);
+    setValue('status', 1);
     const formData = getValues();
     console.log(formData);
     await createPlace(formData); 
@@ -43,7 +46,6 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
     dates = dates.map((date: any) => date.format("YYYY-MM-DD"));
     setValue('date', dates);
   };
-  console.log(register('name'));
 
   return (
     <div>
@@ -52,15 +54,10 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
       </div>
       <hr></hr>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* ok */}
         <Input {...register('name')} register={register} />
-        {/* no */}
         <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
-        {/* ok */}
-        {/* <GroupMenu groups={groups} onChange={handleChange}/> */}
+        <GroupMenu groups={groups} setValue={setValue}/>
         <MailCheckbox onClick={() => console.log("aaa")} />
-        {/* no */}
-        {/* <DatePicker /> */}
         <Controller
         name="date" 
         control={control} 
