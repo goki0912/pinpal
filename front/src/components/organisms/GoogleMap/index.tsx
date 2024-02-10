@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { usePlaces } from '@/hooks/usePlaces';
 
 // 初期化用の定数
 const INITIALIZE_LAT = 35.68238;
@@ -8,6 +9,7 @@ const MAPID = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_ID;
 
 
 const GoogleMap: React.FC = () => {
+    const markers = usePlaces();
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [mapSize, setMapSize] = useState({
@@ -43,21 +45,16 @@ const GoogleMap: React.FC = () => {
         });
 
         setMap(initializedMap);
-
-        const markers = [
-            { lat: 35.68238, lng: 139.76556, content: 'Marker 1', color: { r: 255, g: 0, b: 0, a: 1.0 } },
-            { lat: 35.64238, lng: 139.76565, content: 'Marker 2', color: { r: 0, g: 255, b: 0, a: 1.0 } },
-            { lat: 35.68238, lng: 139.76543, content: 'Marker 3', color: { r: 11, g: 24, b: 46, a: 1.0 } },
-        ];
-
         markers.forEach(markerInfo => {
+            const color = JSON.parse(markerInfo.group.color);
+            console.log(markerInfo.group.color, markerInfo.group.color, markerInfo.group.color, markerInfo.group.color);
             const marker = new google.maps.Marker({
-                position: { lat: markerInfo.lat, lng: markerInfo.lng },
+                position: { lat: Number(markerInfo.latitude), lng: Number(markerInfo.longitude) },
                 map: initializedMap,
-                title: markerInfo.content,
+                title: markerInfo.name,
                 icon: {
                     path: google.maps.SymbolPath.CIRCLE,
-                    fillColor: `rgba(${markerInfo.color.r},${markerInfo.color.g},${markerInfo.color.b},${markerInfo.color.a})`,
+                    fillColor: `rgba(${color.r},${color.g},${color.b},${color.a})`,
                     fillOpacity: 1.0,
                     strokeWeight: 0,
                     scale: 8, 
