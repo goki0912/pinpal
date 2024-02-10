@@ -19,8 +19,8 @@ const GoogleMap: React.FC = () => {
     useEffect(() => {
         const handleResize = () => {
             setMapSize({
-                width: `${window.innerWidth}px`,
-                height: `${window.innerHeight-100}px`
+                width: `100vw`,
+                height: `90vh`
             });
         };
         handleResize();
@@ -63,7 +63,7 @@ const GoogleMap: React.FC = () => {
 
     return (
         <div className='h-full w-full'>
-            <div className='top-0 fixed relative' ref={mapRef} style={{ width: mapSize.width, height: mapSize.height }} />
+            <div className='top-0 left-0 fixed w-full h-full' ref={mapRef} style={{ width: mapSize.width, height: mapSize.height }} />
             <div className="flex justify-center bg-white h-2"></div>
         </div>
     )
