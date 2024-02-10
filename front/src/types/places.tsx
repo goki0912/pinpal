@@ -1,5 +1,4 @@
 export type Places = {
-    id: number;
     name: string;
     status: number;
     group_id: [
