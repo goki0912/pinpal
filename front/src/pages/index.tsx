@@ -15,7 +15,6 @@ export default function Home() {
         {places?.map((place) => (
           <li key={place.id}>
             
-            <h2>{place.name}</h2>
           </li>
         ))}
       </ul>

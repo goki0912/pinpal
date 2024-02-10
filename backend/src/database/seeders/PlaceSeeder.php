@@ -22,7 +22,7 @@ class PlaceSeeder extends Seeder
             'date' => json_encode([
                 "2024-02-15",
                 "2024-02-16"
-            ])
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Place::create([
@@ -34,7 +34,7 @@ class PlaceSeeder extends Seeder
             'date' => json_encode([
                 '2024-02-17',
                 '2024-02-18'
-            ])
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Place::create([
@@ -46,7 +46,7 @@ class PlaceSeeder extends Seeder
             'date' => json_encode([
                 '2024-02-19',
                 '2024-02-20'
-            ])
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Place::create([
@@ -58,7 +58,7 @@ class PlaceSeeder extends Seeder
             'date' => json_encode([
                 '2023-02-15',
                 '2023-02-16'
-            ])
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Place::create([
@@ -70,7 +70,7 @@ class PlaceSeeder extends Seeder
             'date' => json_encode([
                 '2024-03-15',
                 '2024-03-16'
-            ])
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
     }

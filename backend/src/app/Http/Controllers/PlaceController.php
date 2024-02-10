@@ -9,7 +9,7 @@ class PlaceController extends Controller
 {
     public function getPlaces()
     {
-      $places = Place::all();
+      $places = Place::with('group')->get();
       return $places;
     }
 
