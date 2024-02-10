@@ -18,9 +18,9 @@ export const useCreatePlace = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmitCreate = async () => {
         await createPlace(formData);
     };
 
-    return { formData, handleChange, handleSubmit };
+    return { formData, handleChange, handleSubmitCreate };
 };

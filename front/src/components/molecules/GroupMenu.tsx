@@ -4,9 +4,10 @@ import { Group } from '@/types/group';
 
 interface GroupMenuProps {
   groups: Group[];
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)=>void;
 }
 
-const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
+const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
     const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
@@ -20,11 +21,12 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
         return { ...group, color };
     });
 
+    console.log(groupList); 
+
     const onGroupClick = (groupList: Group) => {
         setSelectedGroup(groupList); // 選択されたグループを更新
         setIsOpen(false); // ドロップダウンメニューを閉じる
     }; 
-
 
   return (
     <div className="relative inline-block text-left w-4/5 mx-5">
@@ -37,7 +39,7 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
                 aria-label="Selected group color"
             ></div>
             )}
-            <input onClick={toggleDropdown} value={selectedGroup ? selectedGroup.name : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
+            <input onChange={(e)=>onChange(e)} name="group_id" onClick={toggleDropdown} value={selectedGroup ? selectedGroup.id : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
         </div>
       {/* ドロップダウンメニュー */}
       <div className={`${isOpen ? 'block' : 'hidden'} z-10 w-full bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700`} id="dropdown">

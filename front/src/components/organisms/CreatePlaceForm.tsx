@@ -8,6 +8,8 @@ import GroupMenu from '../molecules/GroupMenu';
 import Button from '../atoms/Button';
 import { useGroups } from '@/hooks/useGroups';
 import Autocomplete from '@/components/molecules/AutoComplete';
+import { useForm } from "react-hook-form";
+import { useCreatePlace } from '@/hooks/useCreatePlaces';
 
 
 interface CreatePlaceProps {
@@ -23,6 +25,17 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({onClick}) => {
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
+
+  const {
+    handleChange, 
+    handleSubmitCreate,
+  } = useCreatePlace();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
   
   return (
       <div>
@@ -30,14 +43,20 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({onClick}) => {
           <Title title="Places I Want to Go" subtitle="行きたい場所をストックしよう！" />
         </div>     
         <hr></hr>
-        <Input name="場所：Place name" form_name="name" />
-        <Autocomplete name="住所：Place address" form_name="address"  onSelectPlace={handleSelectPlace} />
-        <GroupMenu groups={groups} />
-        <MailCheckbox onClick={()=>console.log("aaa")}/>
-        <DatePicker />
-        <div className="w-full flex justify-center">
-          <Button onClick={onClick} title="決定"/>
-        </div>
+        <form onSubmit={handleSubmit(handleSubmitCreate)}>
+          {/* ok */}
+          <Input name="場所：Place name" form_name="name" onChange={handleChange}/> 
+          {/* no */}
+          <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
+          {/* ok */}
+          <GroupMenu groups={groups} onChange={handleChange}/>
+          <MailCheckbox onClick={()=>console.log("aaa")}/>
+          {/* no */}
+          <DatePicker />
+          <div className="w-full flex justify-center">
+            <Button onClick={onClick} title="決定"/>
+          </div>
+        </form>
     </div>
   );
 }
