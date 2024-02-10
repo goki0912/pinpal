@@ -5,12 +5,15 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 
 const MultiDatePickerComponent = () => {
   return (
-    <DatePicker
-      multiple
-      plugins={[
-        <DatePanel />
-      ]}
-    />
+    <div className="m-2 w-full">
+      <DatePicker
+        multiple
+        inputClass="custom-input-size"
+        plugins={[
+          <DatePanel />
+        ]}    
+      />
+    </div>
   )
 }
 export default MultiDatePickerComponent
