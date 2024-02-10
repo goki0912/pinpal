@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import GoogleMap from '@/components/organisms/GoogleMap';
-import  PlacesList  from '@/components/organisms/PlacesList';
+import PlacesList from '@/components/organisms/PlacesList';
 import { usePlaces } from '@/hooks/usePlaces';
+import CreatePlaceForm from '@/components/organisms/CreatePlaceForm';
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -10,7 +11,8 @@ export default function Home() {
   return (
     <main>
       <GoogleMap />
-      <PlacesList places={allPlace} />
+      {/* <PlacesList places={allPlace} /> */}
+      <CreatePlaceForm />
     </main>
   );
 }

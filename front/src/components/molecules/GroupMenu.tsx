@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { useState } from 'react';
-import Group from '@/types/group'; 
+import { Group } from '@/types/group'; 
 
 interface GroupMenuProps {
   groups: Group[];
@@ -14,11 +14,17 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
     const onClick = (id: number) => {
         console.log(`Group with id ${id} was clicked.`);
     };
-    const onGroupClick = (group: Group) => {
-        setSelectedGroup(group); // 選択されたグループを更新
+
+    const groupList = groups.map((group) => {
+        const color = JSON.parse(group.color);
+        return { ...group, color };
+    });
+
+    const onGroupClick = (groupList: Group) => {
+        setSelectedGroup(groupList); // 選択されたグループを更新
         setIsOpen(false); // ドロップダウンメニューを閉じる
-      };
-  
+    }; 
+
 
   return (
     <div className="relative inline-block text-left w-4/5 mx-5">
@@ -27,7 +33,7 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
         {selectedGroup && (
             <div 
                 className="w-4 h-4 mx-4" 
-                style={{ backgroundColor: selectedGroup.color }} 
+                style={{ backgroundColor: `rgba(${selectedGroup.color.r}, ${selectedGroup.color.g}, ${selectedGroup.color.b}, ${selectedGroup.color.a})`}} 
                 aria-label="Selected group color"
             ></div>
             )}
@@ -36,11 +42,11 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups }) => {
       {/* ドロップダウンメニュー */}
       <div className={`${isOpen ? 'block' : 'hidden'} z-10 w-full bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700`} id="dropdown">
         <ul className="w-full py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton">
-          {groups.map((group) => (
+          {groupList.map((group) => (
             <li key={group.id} className='w-full'>
               <button type="button" className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => onGroupClick(group)}>
                 <div className="flex items-center">
-                  <div className="w-4 h-4 mx-4" style={{backgroundColor: group.color}}></div>
+                  <div className="w-4 h-4 mx-4" style={{backgroundColor: `rgba(${group.color.r},${group.color.g},${group.color.b},${group.color.a})`}}></div>
                   <p>{group.name}</p>
                 </div>
               </button>
