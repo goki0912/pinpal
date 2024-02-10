@@ -7,7 +7,7 @@ interface MailCheckboxProps {
 
 const MailCheckbox: React.FC<MailCheckboxProps>= ({onClick}) => {
   return (
-    <div className="mb-5 flex">
+    <div className="m-5 flex">
       <Checkbox onClick={onClick} color='#6938D3'/>
       <p className='pl-2'>候補日を入力して招待メールを送る</p>
     </div>
