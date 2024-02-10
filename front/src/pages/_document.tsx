@@ -8,10 +8,16 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     {googleMapsApiKey && (
-                        <script
-                            async
-                            src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&v=beta&libraries=marker`}
-                        />
+                        <>
+                            <script
+                                src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&v=beta&libraries=marker`}
+                            />
+                            <script
+                                async
+                                src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
+                                id="google-maps"
+                            ></script>
+                        </>
                     )}
                 </Head>
                 <body>

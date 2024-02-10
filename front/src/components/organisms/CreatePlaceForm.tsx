@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import DatePicker from '../molecules/DatePicker';
 import CreatePlace from '../molecules/CreatePlace';
 import Title from '../molecules/Title';
@@ -6,13 +7,22 @@ import MailCheckbox from '../molecules/MailCheckbox';
 import GroupMenu from '../molecules/GroupMenu';
 import Button from '../atoms/Button';
 import { useGroups } from '@/hooks/useGroups';
+import Autocomplete from '@/components/molecules/AutoComplete';
+
 
 interface CreatePlaceProps {
-    onClick: () => void;
+  onClick: () => void;
 }
 
 const CreatePlaceForm: React.FC<CreatePlaceProps> = ({onClick}) => { 
   const groups  = useGroups();
+
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  console.log(location);
+
+  const handleSelectPlace = (lat: number, lng: number) => {
+    setLocation({ lat, lng });
+  };
   
   return (
       <div>
@@ -21,15 +31,15 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({onClick}) => {
         </div>     
         <hr></hr>
         <Input name="場所：Place name" form_name="name" />
-        <Input name="住所：Place address" form_name="address" />
+        <Autocomplete name="住所：Place address" form_name="address"  onSelectPlace={handleSelectPlace} />
         <GroupMenu groups={groups} />
         <MailCheckbox onClick={()=>console.log("aaa")}/>
         <DatePicker />
         <div className="w-full flex justify-center">
           <Button onClick={onClick} title="決定"/>
         </div>
-      </div>
-    );
+    </div>
+  );
 }
 
 export default CreatePlaceForm;
