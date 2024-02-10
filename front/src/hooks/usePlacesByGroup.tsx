@@ -11,7 +11,7 @@ export const usePlacesByGroup = (id: number) => {
 
     useEffect(() => {
         fetchPlaces();
-    }, [fetchPlaces]);
+    }, [id]);
 
     return places;
 };
