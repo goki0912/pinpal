@@ -1,20 +1,18 @@
 import Checkbox from "../atoms/Checkbox";
 import LocationIcon from "../atoms/LocationIcon";
 import {Place} from "../../types/place";
-import {Group} from "../../types/group";
 
 interface PlaceProps {
     place: Place;
-    group: Group
     onClick: () => void;
     // 確認モーダル表示
     onMove: () => void; 
     // mapに移動する関数を追加
 }
 
-const Place: React.FC<PlaceProps> = ({place, group,onClick,onMove}) => {
+const Place: React.FC<PlaceProps> = ({place,onClick,onMove}) => {
   return (
-    <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={{backgroundColor:group.color}} onClick={onMove}>
+    <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={{ backgroundColor: place.group_id[0]['color'] }} onClick={onMove}>
       <div className="mr-2 w-1/6">
         <Checkbox onClick={onClick} color="#FFFFF" />
       </div>
@@ -24,7 +22,7 @@ const Place: React.FC<PlaceProps> = ({place, group,onClick,onMove}) => {
             <span className="ml-3 text-xl font-medium">{place.name}</span>
         </div>
         <div className="w-full flex items-center">
-            <span className="text-sm px-12">{group.name}</span>
+            <span className="text-sm px-12">{place.group_id[0]['name']}</span>
         </div>
       </div>
     </div>
