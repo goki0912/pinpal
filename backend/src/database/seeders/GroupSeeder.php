@@ -13,30 +13,54 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
-
         Group::create([
             'name' => '高校の友達',
-            'color' => '#FF0000'
+            'color' => json_encode([
+                'r' => 255,
+                'g' => 0,
+                'b' => 0,
+                'a' => 1.0
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Group::create([
             'name' => 'バイト先の仲間',
-            'color' => '#00FF00'
+            'color' => json_encode([
+                'r' => 0,
+                'g' => 255,
+                'b' => 0,
+                'a' => 1.0
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Group::create([
             'name' => '学科の友達',
-            'color' => '#0000FF'
+            'color' => json_encode([
+                'r' => 0,
+                'g' => 0,
+                'b' => 255,
+                'a' => 1.0
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Group::create([
             'name' => 'サークルの仲間',
-            'color' => '#FFFF00'
+            'color' => json_encode([
+                'r' => 255,
+                'g' => 255,
+                'b' => 0,
+                'a' => 1.0
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Group::create([
             'name' => '部活の仲間',
-            'color' => '#00FFFF'
+            'color' => json_encode([
+                'r' => 255,
+                'g' => 0,
+                'b' => 255,
+                'a' => 1.0
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
     }
 }

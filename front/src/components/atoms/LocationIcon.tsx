@@ -9,7 +9,7 @@ interface LocationIconProps {
 const LocationIcon: React.FC<LocationIconProps> = ({color = '#FFFFFF'}) => {
     return (
         <FontAwesomeIcon
-            className="text-2xl" //今後、サイズ変更必要
+            className="text-xl pt-1" //今後、サイズ変更必要
             icon={faMapMarkerAlt} 
             style={{ color: color, cursor: 'pointer', pointerEvents: 'none' }} // pointerEvents: 'none' でクリック不可に
         /> 
