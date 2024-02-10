@@ -61,3 +61,27 @@ export const createPlace = async (place : PlacesPost) => {
         console.error(e);
     }
 }
+
+// statusのみを更新する
+export const updatePlaceStatus = async (id: number, status_id: number) => {
+    const token = sessionStorage.getItem('access_token');
+
+    try {
+        const response = await fetch(
+            `http://localhost:80/api/places/${id}/status/${status_id}`, 
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', 
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({status: status_id}),
+            }
+        );
+        const updatedPlace = await response.json();
+        return updatedPlace;
+    }catch(e){
+        console.error(e);
+    }
+}

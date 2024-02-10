@@ -5,6 +5,8 @@ import  PlacesList  from '@/components/organisms/PlacesList';
 import InputGroup from '@/components/organisms/InputGroup';
 import InputDate from '@/components/organisms/InputDate';
 import { usePlaces } from '@/hooks/usePlaces';
+import Autocomplete from '@/components/molecules/AutoComplete';
+import CreatePlaceForm from '@/components/organisms/CreatePlaceForm';
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -13,6 +15,7 @@ export default function Home() {
     <main>
       <GoogleMap />
       <PlacesList places={allPlace} />
+      <CreatePlaceForm onClick={() => console.log("aaa")} />
     </main>
   );
 }
