@@ -7,7 +7,7 @@ interface CheckboxProps {
     color?: string;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({onClick, color = '#6938D3'}) => {
+const Checkbox: React.FC<CheckboxProps> = ({onClick, color = '#FFFFFF'}) => {
     return (
         <FontAwesomeIcon
             className="text-2xl" //今後、サイズ変更必要
