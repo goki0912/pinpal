@@ -11,8 +11,9 @@ interface PlaceProps {
 }
 
 const Place: React.FC<PlaceProps> = ({place,onClick,onMove}) => {
+  const color = JSON.parse(place.group.color);
   return (
-    <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={{ backgroundColor: place.group_id[0]['color'] }} onClick={onMove}>
+    <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={{ backgroundColor: `rgba(${color.r},${color.g},${color.b},${color.a})` }} onClick={onMove}>
       <div className="mr-2 w-1/6">
         <Checkbox onClick={onClick} color="#FFFFF" />
       </div>
@@ -22,7 +23,7 @@ const Place: React.FC<PlaceProps> = ({place,onClick,onMove}) => {
             <span className="ml-3 text-xl font-medium">{place.name}</span>
         </div>
         <div className="w-full flex items-center">
-            <span className="text-sm px-12">{place.group_id[0]['name']}</span>
+            <span className="text-sm px-12">{place.group.name}</span>
         </div>
       </div>
     </div>

@@ -6,14 +6,13 @@ import CreatePlace from '../molecules/CreatePlace';
 
 interface PlaceListProps {
     places: PlaceType[];
-    onClick: (id: number) => void;
-    onMove: (id: number)=> void;
+    onClick?: (id: number) => void;
+    onMove?: (id: number)=> void;
 }
 
 const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove }) => { // propsを正しく展開する
-    console.log(places)
     return (
-      <div>
+      <div className='z-20'>
         <div className="flex items-center justify-between p-3">
           <Title title="Places I Want to Go" subtitle="行きたい場所をストックしよう！" />
           <MenuButton onClick={() => console.log("Menu button clicked")} />
