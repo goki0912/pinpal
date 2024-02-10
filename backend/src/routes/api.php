@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/places', [PlaceController::class, 'getPlaces'])->name('get.places');
+Route::post('/places', [PlaceController::class, 'createPlace'])->name('create.place');
+Route::patch('/places', [PlaceController::class, 'updatePlaceStatus'])->name('update.place.status');
