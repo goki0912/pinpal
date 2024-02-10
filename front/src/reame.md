@@ -1,35 +1,13 @@
-## ファイル、フォルダの名前
-基本的には、ファイル、フォルダの名前は小文字で、単語と単語の間はハイフンでつなぐ
-#### ただし例外もある
-- `index.tsx`の一つ上の階層にあるファイルやフォルダは大文字で始まる
-以下例
-```
-.
-├── BlueArrow
-│   └── index.tsx
-├── InfoText
-│   └── index.tsx
-├── LinkItem
-│   └── index.tsx
-├── SignUpLink
-│   └── index.tsx
-├── WarningUnderlineText
-│   └── index.tsx
-├── XLinkIcon
-│   └── index.tsx
-└── break
-    ├── PC
-    │   └── index.tsx
-    └── SM
-        └── index.tsx
-```
-
-
-
 ## フォルダ構成解説
 ```
+.
 ├── components
-├── features
+│   ├── atoms
+│   │   └── index.tsx
+│   ├── molecules
+│   │   └── index.tsx
+│   └── organisms
+│       └── index.tsx
 ├── hooks
 │   └── index.tsx
 ├── pages
@@ -42,24 +20,16 @@
 ├── styles
 │   └── globals.css
 └── types
+    └── index.tsx
 ```
 
+### 注意
+- sampleなのでindex.tsxですが、本当は頭文字大文字でファイルを作成してね
+
+## フォルダ構成解説
 ### components
-- コンポーネントを配置するディレクトリ
-  - 例: button, link, raioButton...
-- 他のところで使いまわせるようなものを配置する
-
-### features
-- ページごとの機能、見た目を配置するディレクトリ
-  - ex) topページで使う機能、見た目をfeatures/top-page-sectionsに配置する
-```
-.
-└── top-page-sections
-    ├── Hero          // トップページのヒーローセクション
-    └── News          // トップページのニュースセクション
-```
-  - componentsとの違いは、featuresはページごとの機能、見た目を配置するディレクトリであること
-  - componentsを呼び出すことはあっても、componentsからfeaturesを呼び出すことはない
+- [atomicデザイン](https://zenn.dev/miya_tech/articles/1da21ede685707)でやるよ〜
+- figmaでどこに記述するか決めるよ〜
 
 ### hooks
 - カスタムフックを配置するディレクトリ
