@@ -1,9 +1,9 @@
 import { getPlacesByGroup } from '@/pages/api/places';
 import React, { useState , useEffect } from "react";
-import { Places } from '@/types/places';   
+import { PlacesPost } from '@/types/places';   
 
 export const usePlacesByGroup = (id: number) => {
-    const [ places, setPlaces ] = useState<Places[]>([]);
+    const [ places, setPlaces ] = useState<PlacesPost[]>([]);
     const fetchPlaces = async () => {
         const Places = await getPlacesByGroup(id);
         setPlaces(Places);
@@ -11,7 +11,7 @@ export const usePlacesByGroup = (id: number) => {
 
     useEffect(() => {
         fetchPlaces();
-    }, [fetchPlaces]);
+    }, [id]);
 
     return places;
 };

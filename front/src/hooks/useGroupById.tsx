@@ -11,7 +11,7 @@ export const useGroupById = (id: number) => {
 
     useEffect(() => {
         fetchGroup();
-    }, [fetchGroup]);
+    }, [id]);
 
     return groups;
 };

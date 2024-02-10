@@ -1,4 +1,4 @@
-import { Places } from '@/types/places';
+import { PlacesPost } from '@/types/placesPost';
 
 // placesの一覧を取得する
 export const getPlaces  = async () => {
@@ -39,7 +39,7 @@ export const getPlacesByGroup = async (groupId: number) => {
 }
 
 // placeを作成する
-export const createPlace = async (place : Places) => {
+export const createPlace = async (place : PlacesPost) => {
     const token = sessionStorage.getItem('access_token');
 
     try {
