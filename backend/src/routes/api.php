@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/places', [PlaceController::class, 'getPlaces'])->name('get.places');
+Route::get('/places/{id}', [PlaceController::class, 'getPlaceById'])->name('get.places.by.id');
 Route::post('/places', [PlaceController::class, 'createPlace'])->name('create.place');
 Route::patch('/places/{id}/status/{status}', [PlaceController::class, 'updatePlaceStatus'])->name('update.place.status');
 
