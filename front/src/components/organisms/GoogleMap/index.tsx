@@ -47,7 +47,6 @@ const GoogleMap: React.FC = () => {
         setMap(initializedMap);
         markers.forEach(markerInfo => {
             const color = JSON.parse(markerInfo.group.color);
-            console.log(markerInfo.group.color, markerInfo.group.color, markerInfo.group.color, markerInfo.group.color);
             const marker = new google.maps.Marker({
                 position: { lat: Number(markerInfo.latitude), lng: Number(markerInfo.longitude) },
                 map: initializedMap,

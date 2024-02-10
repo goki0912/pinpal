@@ -37,7 +37,6 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
     setValue('group_id', group_id);
     setValue('status', 1);
     const formData = getValues();
-    console.log(formData);
     await createPlace(formData); 
   };
 

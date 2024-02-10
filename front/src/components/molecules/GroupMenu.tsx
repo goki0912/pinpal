@@ -22,7 +22,6 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
     return { ...group, color };
   });
 
-  console.log(groupList);
 
   const onGroupClick = (groupList: Group) => {
     setSelectedGroup(groupList); // 選択されたグループを更新
