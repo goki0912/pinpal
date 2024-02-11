@@ -21,13 +21,13 @@ interface PlaceListProps {
 }
 
 
-
 const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
   const { places, refreshPlaces } = usePlaces();
   const [placesList, setPlacesList] = useState<PlaceType[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
+  const allPlace = usePlaces();
 
   const handleMap = (id: number) => {
     setShowAlert(true);
@@ -54,7 +54,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
     setClicked(false);
     setShowAlert(false);
     onPlaceSelect(latitude, longitude)
-    console.log('Clicked place id:map', id,latitude,longitude)
     scroll.scrollToTop();
   }
 
@@ -70,7 +69,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {places.map((place) => (
+      {allPlace.places.map((place) => (
         <Place
           key={place.id}
           place={place}
