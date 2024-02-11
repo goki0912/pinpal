@@ -13,3 +13,4 @@ const Title: React.FC<TitleProps> = ({title, subtitle}) => {
 };
 
 export default Title;
+

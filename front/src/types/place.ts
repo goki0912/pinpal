@@ -5,6 +5,7 @@ export type Place = {
     name: string;
     status: number;
     group_id: Group[];
+    group: Group;
     latitude: number;
     longitude: number;
     date: string[];

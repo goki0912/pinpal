@@ -1,9 +1,10 @@
 import { getPlaces } from '@/pages/api/places';
 import React, { useState , useEffect } from "react";
-import { Places } from '@/types/places';   
+import { Place } from '@/types/place';   
 
 export const usePlaces = () => {
-    const [ places, setPlaces ] = useState<Places[]>([]);
+    const [ places, setPlaces ] = useState<Place[]>([]);
+    const [reload, setReload] = useState(false); 
     const fetchPlaces = async () => {
         const Places = await getPlaces();
         setPlaces(Places);
@@ -11,7 +12,12 @@ export const usePlaces = () => {
 
     useEffect(() => {
         fetchPlaces();
-    }, []);
+    }, [reload]);
 
-    return places;
+    // データを再読み込みするための関数を追加
+    const refreshPlaces = () => {
+        setReload(prev => !prev); // reload状態を切り替えてエフェクトをトリガー
+    }
+
+    return {places, refreshPlaces};
 };

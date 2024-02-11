@@ -31,4 +31,6 @@ return [
 
     'supports_credentials' => false,
 
+    'methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+
 ];
