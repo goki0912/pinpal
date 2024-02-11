@@ -20,15 +20,20 @@ interface PlaceListProps {
     onPlaceSelect: (latitude: number, longitude: number) => void;
 }
 
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+
+const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+  const { places, refreshPlaces } = usePlaces();
+  const [placesList, setPlacesList] = useState<PlaceType[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
   const allPlace = usePlaces();
 
   const handleMap = (id: number) => {
-    setSelectedPlaceId(id);
     setShowAlert(true);
+    console.log('Clicked place idmove:', id);
+    setClicked(true);
+    setSelectedPlaceId(id);
   };
 
   const handleConfirmYes = async () => {
@@ -36,11 +41,14 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
       await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
       setClicked(false);
+      refreshPlaces();
     }
   };
 
   const handleMoveClick = (id:number,latitude:number,longitude:number) => {
-    if(clicked){
+    console.log('Clicked place', clicked)
+    if(!clicked){
+        setClicked(true);
         return;
     }
     setClicked(false);
@@ -48,6 +56,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
     onPlaceSelect(latitude, longitude)
     scroll.scrollToTop();
   }
+
   const onClosed = () => {
     setShowAlert(false);
     setClicked(false);
@@ -60,7 +69,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {allPlace.map((place) => (
+      {allPlace.places.map((place) => (
         <Place
           key={place.id}
           place={place}
