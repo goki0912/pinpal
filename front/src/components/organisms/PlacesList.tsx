@@ -9,6 +9,7 @@ import CreatePlace from '../molecules/CreatePlace';
 import { animateScroll as scroll } from 'react-scroll';
 import CreatePlaceForm from './CreatePlaceForm';
 import { useEffect } from 'react';
+import { usePlaces } from '@/hooks/usePlaces';
 
 interface PlaceListProps {
     places: PlaceType[];
@@ -20,16 +21,19 @@ interface PlaceListProps {
 }
 
 
-
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+  const { places, refreshPlaces } = usePlaces();
+  const [placesList, setPlacesList] = useState<PlaceType[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
+  const allPlace = usePlaces();
 
   const handleMap = (id: number) => {
-    console.log('Clicked place idmove:', id);
-    setSelectedPlaceId(id);
     setShowAlert(true);
+    console.log('Clicked place idmove:', id);
+    setClicked(true);
+    setSelectedPlaceId(id);
   };
 
   const handleConfirmYes = async () => {
@@ -37,19 +41,22 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
       await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
       setClicked(false);
+      refreshPlaces();
     }
   };
 
   const handleMoveClick = (id:number,latitude:number,longitude:number) => {
-    if(clicked){
+    console.log('Clicked place', clicked)
+    if(!clicked){
+        setClicked(true);
         return;
     }
     setClicked(false);
     setShowAlert(false);
     onPlaceSelect(latitude, longitude)
-    console.log('Clicked place id:map', id,latitude,longitude)
     scroll.scrollToTop();
   }
+
   const onClosed = () => {
     setShowAlert(false);
     setClicked(false);
@@ -62,7 +69,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {places.map((place) => (
+      {allPlace.places.map((place) => (
         <Place
           key={place.id}
           place={place}
