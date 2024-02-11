@@ -9,7 +9,7 @@ import InputDate from '@/components/organisms/InputDate';
 import { usePlaces } from '@/hooks/usePlaces';
 import Autocomplete from '@/components/molecules/AutoComplete';
 import CreatePlaceForm from '@/components/organisms/CreatePlaceForm';
-import { handleCreatePlaceClick } from '@/components/organisms/CreatePlaceForm';
+// import { handleCreatePlaceClick } from '@/components/organisms/CreatePlaceForm';
 import PlaceList from '@/components/organisms/PlacesList';
 import { log } from "console";
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +19,7 @@ export default function Home() {
   const allPlace = usePlaces();
   const [visible, setVisible] = useState(true); // PlaceList の表示状態
   const [mapCenter, setMapCenter] = useState({lat: 35.682839, lng: 139.759455}); // 初期中心座標
-  const handlePlaceSelect = (lat, lng) => {
+  const handlePlaceSelect = (lat: any, lng: any) => {
     lat = parseFloat(lat);
     lng = parseFloat(lng);
     setMapCenter({ lat, lng });
@@ -36,7 +36,7 @@ export default function Home() {
     <main>
       <GoogleMap center={mapCenter}/>
       {visible && <PlaceList places={allPlace} visible={visible} onChangeVisible={changeVisible} onPlaceSelect={handlePlaceSelect} />}
-      {!visible && <CreatePlaceForm onClick={changeVisible} />} {/* visible が false のときに CreatePlaceForm を表示 */}
+      {!visible && <CreatePlaceForm changeVisible={changeVisible}/>} {/* visible が false のときに CreatePlaceForm を表示 */}
     </main>
   );
 }
