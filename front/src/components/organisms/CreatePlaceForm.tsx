@@ -32,7 +32,6 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
   };
 
   const onSubmit = async (data: any, event: any) => {
-    console.log(getValues());
     event.preventDefault()
     const group_id = getValues('group_id');
     setValue('latitude', location.lat);
