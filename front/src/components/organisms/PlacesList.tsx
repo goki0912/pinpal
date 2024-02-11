@@ -22,8 +22,9 @@ interface PlaceListProps {
 
 
 
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect,onRender}) => {
-  let allPlace = usePlaces();
+const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+  const { places, refreshPlaces } = usePlaces();
+  const [placesList, setPlacesList] = useState<PlaceType[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
@@ -40,6 +41,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
       await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
       setClicked(false);
+      refreshPlaces();
     }
   };
 
@@ -68,7 +70,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {allPlace.map((place) => (
+      {places.map((place) => (
         <Place
           key={place.id}
           place={place}

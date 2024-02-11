@@ -9,7 +9,6 @@ import {useEffect} from 'react';
 import { usePlaces } from '@/hooks/usePlaces';
 import Autocomplete from '@/components/molecules/AutoComplete';
 import CreatePlaceForm from '@/components/organisms/CreatePlaceForm';
-import { handleCreatePlaceClick } from '@/components/organisms/CreatePlaceForm';
 import PlaceList from '@/components/organisms/PlacesList';
 import { log } from "console";
 const inter = Inter({ subsets: ["latin"] });
