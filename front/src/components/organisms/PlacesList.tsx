@@ -30,36 +30,53 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
   const allPlace = usePlaces();
 
   const handleMap = (id: number,status: number) => {
+    setShowAlert(true);
     if(status === 2){
       return;
     }
-    setShowAlert(true);
-    console.log('Clicked place status:', status);
     setClicked(true);
+    // 地図の操作を行うなどの処理
+    setTimeout(() => setClicked(false), 500);
     setSelectedPlaceId(id);
+    console.log('Clicked handleMap', status);
+    console.log('Clicked handleMap', clicked);
+
   };
 
   const handleConfirmYes = async () => {
     if (selectedPlaceId != null ) {
-      await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
       setClicked(false);
+      await useUpdateStatus(selectedPlaceId, 2);
       refreshPlaces();
     }
   };
 
   const handleMoveClick = (id:number,latitude:number,longitude:number) => {
-    console.log('Clicked place', clicked)
+    if (showAlert) {
+      console.log("Alert is showing, skipping the move click action.");
+      console.log('Scrolltop');
+      return;
+  }else{
+
+    console.log('Clicked handleMoveCl', id);
+    onPlaceSelect(latitude, longitude)
+    if(!showAlert){
+      console.log('showa', showAlert);
+      console.log('Scrolltop2000');
+      scroll.scrollToTop({
+        duration: 2000, // 500ミリ秒でスクロール
+        delay: 200, // 遅延なし
+        smooth: "easeInOutQuart", // スムーズスクロールの種類（任意で選択）
+      });
+    }
     if(!clicked){
-        setClicked(true);
         return;
     }
-    setClicked(false);
     setShowAlert(false);
-    onPlaceSelect(latitude, longitude)
-    scroll.scrollToTop();
   }
-
+  }
+  
   const onClosed = () => {
     setShowAlert(false);
     setClicked(false);
