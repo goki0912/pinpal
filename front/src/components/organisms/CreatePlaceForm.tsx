@@ -15,6 +15,8 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { PlacesPost } from '@/types/placesPost';
 import { createPlace } from '@/pages/api/places';
 import { useSendMail } from '@/hooks/useSendMail';
+import { useGroupEmail } from '@/hooks/useGroupsEmail';
+import Email from '../molecules/Email';
 
 
 interface CreatePlaceProps {
@@ -38,8 +40,20 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
     setValue('group_id', group_id);
     setValue('status', 1);
     const formData = getValues();
-    console.log(formData);
+    console.log(formData); 
     await createPlace(formData); 
+    // if (!showDatePicker) {
+    //   const emailListFormatted = emailList.map(async (email) => {
+    //     console.log(email.email);  
+    //     // await fetch('/api/sendMail', {
+    //     //   method: 'POST',
+    //     //   headers: {
+    //     //     'Content-Type': 'application/json',
+    //     //   },
+    //     //   body: JSON.stringify({ email: email.email }),
+    //     // });
+    //   });
+    // }
   };
 
 
@@ -48,15 +62,13 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
     setValue('date', dates);
   };
 
-  const emailList = groups.map((group) => group.email);
-
-  const handleMailCheckboxClick = () => {
+  const emailList = useGroupEmail(getValues('group_id'));
+  console.log(emailList); 
+  
+  const handleMailCheckboxClick = async () => {
     setShowDatePicker(!showDatePicker);
-    // showDatePickerが表示されている場合にmailhogにメールが送信されるようにする
-    useSendMail();
     console.log(showDatePicker);
   };
-
 
   return (
     <div>

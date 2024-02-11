@@ -30,4 +30,4 @@ Route::get('/groups/{group_id}', [GroupController::class, 'getGroup'])->name('ge
 Route::post('/groups', [GroupController::class, 'createGroup'])->name('create.group');
 Route::put('/groups/{group_id}', [GroupController::class, 'updateGroup'])->name('update.group');
 Route::delete('/groups/{group_id}', [GroupController::class, 'deleteGroup'])->name('delete.group');
-Route::get('/groups/{group_id}', [GroupController::class, 'getGroupEmails'])->name('get.members.email');
+Route::get('/groups/{group_id}/email', [GroupController::class, 'getGroupEmails'])->name('get.members.email');

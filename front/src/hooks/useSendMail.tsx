@@ -1,17 +1,22 @@
-// mailを送るためのカスタムフック
-import { useState } from 'react';
-import { sendEmail } from '@/pages/api/mail';
+import nodemailer from 'nodemailer';
 
-export const useSendMail = () => {
-    const [email, setEmail] = useState<string>('');
+const transporter = nodemailer.createTransport({
+    host: 'localhost',
+    port: 8025,
+});
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+// emailを引数で受け取り、mailhogに送信する
+export const useSendMail = async (email: string) => {
+    const mailOptions = {
+        from: 'admin@gmail.com',
+        to: email,
+        subject: 'イベント招待メールのお知らせ',
+        text: 'テストメールです',
     };
-
-    const handleSubmit = async () => {
-        await sendMail(email);
-    };
-
-    return { email, handleChange, handleSubmit };
-};
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Email sent: ' + info.response);
+    });
+}
