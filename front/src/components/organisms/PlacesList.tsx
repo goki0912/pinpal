@@ -29,37 +29,51 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
   const [clicked,setClicked] = useState(false);
   const allPlace = usePlaces();
 
-  const handleMap = (id: number) => {
+  const handleMap = (id: number,status: number) => {
     setShowAlert(true);
-    console.log('Clicked place idmove:', id);
+    if(status === 2){
+      return;
+    }
     setClicked(true);
+    // 地図の操作を行うなどの処理
+    setTimeout(() => setClicked(false), 500);
     setSelectedPlaceId(id);
+    console.log('Clicked handleMap', status);
+
   };
 
   const handleConfirmYes = async () => {
     if (selectedPlaceId != null ) {
-      await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
-      setClicked(false);
+      await useUpdateStatus(selectedPlaceId, 2);
       refreshPlaces();
     }
   };
 
   const handleMoveClick = (id:number,latitude:number,longitude:number) => {
-    console.log('Clicked place', clicked)
+    if (showAlert) {
+      console.log("Alert is showing, skipping the move click action.");
+      console.log('Scrolltop');
+      return;
+  }else{
+
+    console.log('Clicked handleMoveCl', id);
+    onPlaceSelect(latitude, longitude)
+    if(!showAlert){
+      scroll.scrollToTop({
+        duration: 2000, // 500ミリ秒でスクロール
+        smooth: "easeInOutQuart", // スムーズスクロールの種類（任意で選択）
+      });
+    }
     if(!clicked){
-        setClicked(true);
         return;
     }
-    setClicked(false);
     setShowAlert(false);
-    onPlaceSelect(latitude, longitude)
-    scroll.scrollToTop();
   }
-
+  }
+  
   const onClosed = () => {
     setShowAlert(false);
-    setClicked(false);
 }
 
   return (
@@ -69,11 +83,11 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {allPlace.places.map((place) => (
+      {places.map((place) => (
         <Place
           key={place.id}
           place={place}
-          onClick={()=>handleMap(place.id)}
+          onClick={()=>handleMap(place.id,place.status)}
           onMove={() => handleMoveClick(place.id,place.latitude,place.longitude)}
         />
       ))}

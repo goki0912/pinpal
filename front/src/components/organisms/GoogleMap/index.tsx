@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePlaces } from '@/hooks/usePlaces';
 
 // 初期化用の定数
-const INITIALIZE_LAT = 35.68238;
-const INITIALIZE_LNG = 139.76556;
-const INITIALIZE_ZOOM = 16; // ズームレベル
+const INITIALIZE_LAT = 35.660922;
+const INITIALIZE_LNG = 139.700770;
+const INITIALIZE_ZOOM = 13; // ズームレベル
 const MAPID = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_ID;
 // `center` プロパティの型を定義
 interface Center {
@@ -18,7 +18,6 @@ interface GoogleMapProps {
 
 const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
     const {places} = usePlaces();
-    console.log(places);
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [mapSize, setMapSize] = useState({
@@ -30,7 +29,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
     useEffect(() => {
         if (mapRef.current && !map) {
             const initializedMap = new google.maps.Map(mapRef.current, {
-                center: center,
+                center: { lat: INITIALIZE_LAT, lng: INITIALIZE_LNG },
                 zoom: INITIALIZE_ZOOM,
                 fullscreenControl: false,
                 zoomControl: false,
@@ -43,11 +42,11 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
         }
     }, [mapRef, map, center]); // `center` が変更された時にも useEffect を実行
 
-    useEffect(() => {
-        if (map && center) {
-            map.setCenter(center); // `center` プロパティが更新されたときに中心を設定
-        }
-    }, [center, map]);
+    // useEffect(() => {
+    //     if (map && center) {
+    //         map.setCenter(center); // `center` プロパティが更新されたときに中心を設定
+    //     }
+    // }, [center, map]);
     useEffect(() => {
         const handleResize = () => {
             setMapSize({
@@ -82,7 +81,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
             const lng = Number(markerInfo.longitude);
     
             // グループの色情報を解析
-            const color = JSON.parse(markerInfo.group.color);
+            const color = JSON.parse(markerInfo.group?.color || '{}');
     
             // マーカーを設置
             const marker = new google.maps.Marker({

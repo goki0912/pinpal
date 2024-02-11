@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { Group } from '@/types/group';
-
+import CreateGroupButton from '@/components/molecules/CreateGroupButton';
+import InputGroup from '@/components/organisms/InputGroup';
 interface GroupMenuProps {
   groups: any;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -29,6 +30,18 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
     setIsOpen(false); // ドロップダウンメニューを閉じる
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // モーダルを表示する関数
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // モーダルを閉じる関数
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className="relative inline-block text-left w-4/5 mx-5">
       <label className="block mb-2 text-sm font-medium text-gray-900">グループ：Group</label>
@@ -40,14 +53,14 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
             aria-label="Selected group color"
           ></div>
         )}
-        <input onChange={(e) => onChange(e)} name="group_id" onClick={toggleDropdown} value={selectedGroup ? selectedGroup.name : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
+        <input onChange={(e) => console.log("test")} name="group_id" onClick={toggleDropdown} value={selectedGroup ? selectedGroup.name : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
       </div>
       {/* ドロップダウンメニュー */}
-      <div className={`${isOpen ? 'block' : 'hidden'} z-10 w-full bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700`} id="dropdown">
-        <ul className="w-full py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton">
+      <div className={`${isOpen ? 'block' : 'hidden'} z-10 w-full bg-white divide-y divide-gray-100 rounded shadow`} id="dropdown">
+        <ul className="w-full py-1 text-sm text-gray-700" aria-labelledby="dropdownButton">
           {groupList.map((group: any) => (
             <li key={group.id} className='w-full'>
-              <button type="button" className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => onGroupClick(group)}>
+              <button type="button" className="block px-4 py-2 w-full text-left hover:bg-gray-100" onClick={() => onGroupClick(group)}>
                 <div className="flex items-center">
                   <div className="w-4 h-4 mx-4" style={{ backgroundColor: `rgba(${group.color.r},${group.color.g},${group.color.b},${group.color.a})` }}></div>
                   <p>{group.name}</p>
@@ -55,9 +68,14 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
               </button>
             </li>
           ))}
+          <CreateGroupButton onClick={showModal} />
         </ul>
       </div>
-
+      {isModalVisible && (
+        <div className="modal">
+          <InputGroup title="Group" subtitle="一緒に行くグループを作ろう" onClose={closeModal}/>
+        </div>
+      )}
     </div>
   );
 };

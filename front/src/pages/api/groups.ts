@@ -61,3 +61,22 @@ export const createGroup = async (group : GroupsMember) => {
         console.error(e);
     }
 }
+
+// groupのメールアドレスを取得する
+export const getGroupEmail = async (groupId: number) => {
+    try {
+        const response = await fetch(
+            `http://localhost:80/api/groups/${groupId}/email`, 
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        const groupEmail = await response.json();
+        return groupEmail;
+    }catch(e){
+        console.error(e);
+    }
+}

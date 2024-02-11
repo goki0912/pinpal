@@ -14,6 +14,11 @@ import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { PlacesPost } from '@/types/placesPost';
 import { createPlace } from '@/pages/api/places';
+import { useSendMail } from '@/hooks/useSendMail';
+import { useGroupEmail } from '@/hooks/useGroupsEmail';
+import Email from '../molecules/Email';
+import { EmailType } from '@/types/groups';
+import { log } from 'console';
 
 
 interface CreatePlaceProps {
@@ -30,6 +35,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
+  const emailList = useGroupEmail(4);
 
   const onSubmit = async (data: any, event: any) => {
     event.preventDefault()
@@ -41,21 +47,31 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
     const formData = getValues();
     console.log(formData);
     await createPlace(formData); 
+    console.log(emailList);
+    emailList.forEach(async (email: EmailType) => {
+      console.log(email.email); 
+      await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.email }),
+      });
+    });
+
     changeVisible();
   };
-
 
   const handleDateChange = (dates: any) => {
     dates = dates.map((date: any) => date.format("YYYY-MM-DD"));
     setValue('date', dates);
     console.log(getValues());
   };
-
-  const handleMailCheckboxClick = () => {
+  
+  const handleMailCheckboxClick = async () => {
     setShowDatePicker(!showDatePicker);
     console.log(showDatePicker);
   };
-
 
   return (
     <div>
@@ -83,7 +99,8 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
             )}
           />
         )}
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center gap-x-7 px-6">
+          <button type="button" className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-2/5' onClick={changeVisible}>キャンセル</button>
           <Button title="決定" />
         </div>
       </form>
