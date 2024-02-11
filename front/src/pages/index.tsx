@@ -25,10 +25,8 @@ export default function Home() {
     setMapCenter({ lat, lng });
   };
 
-
-
   const changeVisible = () => {
-    setVisible(!visible); // visible 状態を切り替える
+    setVisible(!visible);
   };
 
 
