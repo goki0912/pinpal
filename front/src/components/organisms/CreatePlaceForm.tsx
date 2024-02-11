@@ -23,8 +23,8 @@ interface CreatePlaceProps {
 const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
   const groups = useGroups();
   const { control, handleSubmit, getValues, setValue, register } = useForm<PlacesPost>();
-
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
@@ -47,6 +47,12 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
     setValue('date', dates);
   };
 
+  const handleMailCheckboxClick = () => {
+    setShowDatePicker(!showDatePicker);
+    console.log(showDatePicker);
+  };
+
+
   return (
     <div>
       <div className="flex items-center justify-between p-3">
@@ -57,22 +63,22 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
         <Input {...register('name')} register={register} />
         <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
         <GroupMenu groups={groups} setValue={setValue}/>
-        <MailCheckbox onClick={() => console.log("aaa")} />
-        <Controller
-        name="date" 
-        control={control} 
-        render={({
-          field: { onChange, name, value },
-        }) => (
-          <DatePicker 
-            value={value}
-            onChange={handleDateChange}
-            multiple 
-            inputClass="custom-input-size" 
-            plugins={[<DatePanel />]} 
+        <MailCheckbox onClick={handleMailCheckboxClick} show={showDatePicker}/>
+        {showDatePicker && (
+          <Controller
+            name="date" 
+            control={control} 
+            render={({ field: { onChange, name, value } }) => (
+              <DatePicker 
+                value={value}
+                onChange={handleDateChange}
+                multiple 
+                inputClass="custom-input-size" 
+                plugins={[<DatePanel />]} 
+              />
+            )}
           />
         )}
-      />
         <div className="w-full flex justify-center">
           <Button onClick={onClick} title="決定" />
         </div>

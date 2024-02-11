@@ -17,18 +17,26 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const allPlace = usePlaces();
-
   const [visible, setVisible] = useState(true); // PlaceList の表示状態
+  const [mapCenter, setMapCenter] = useState({lat: 35.682839, lng: 139.759455}); // 初期中心座標
+  const handlePlaceSelect = (lat, lng) => {
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    setMapCenter({ lat, lng });
+  };
+
+
 
   const changeVisible = () => {
     setVisible(!visible); // visible 状態を切り替える
   };
-  
+
+
   return (
     <main>
-      <GoogleMap />
-      {visible && <PlaceList places={allPlace} visible={visible} onChangeVisible={changeVisible} />}
+      <GoogleMap center={mapCenter}/>
+      {visible && <PlaceList places={allPlace} visible={visible} onChangeVisible={changeVisible} onPlaceSelect={handlePlaceSelect} />}
       {!visible && <CreatePlaceForm onClick={changeVisible} />} {/* visible が false のときに CreatePlaceForm を表示 */}
-      </main>
+    </main>
   );
 }
