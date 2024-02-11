@@ -17,8 +17,7 @@ interface GoogleMapProps {
 }
 
 const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
-    const markers = usePlaces();
-    console.log(markers);
+    const {places} = usePlaces();
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [mapSize, setMapSize] = useState({
@@ -76,13 +75,14 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
     
         setMap(initializedMap);
     
-        markers.forEach(markerInfo => {
+        places.forEach(markerInfo => {
             // latitude と longitude を数値に変換
-            const lat = parseFloat(markerInfo.latitude);
-            const lng = parseFloat(markerInfo.longitude);
+            const lat = Number(markerInfo.latitude);
+            const lng = Number(markerInfo.longitude);
     
             // グループの色情報を解析
-            const color = JSON.parse(markerInfo.group.color);
+            const color = JSON.parse(markerInfo.group?.color || '{}');
+            
     
             // マーカーを設置
             const marker = new google.maps.Marker({
@@ -98,7 +98,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
                 },
             });
         });
-    }, [markers]); // markers が更新された時にのみ実行
+    }, [places]); // markers が更新された時にのみ実行
     
 
     return (
