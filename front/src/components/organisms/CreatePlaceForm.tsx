@@ -20,46 +20,38 @@ import Email from '../molecules/Email';
 
 
 interface CreatePlaceProps {
-  onClick: () => void;
+  changeVisible: () => void;
 }
 
-const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
+const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
   const groups = useGroups();
   const { control, handleSubmit, getValues, setValue, register } = useForm<PlacesPost>();
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: any, event: any) => {
+    event.preventDefault()
     const group_id = getValues('group_id');
     setValue('latitude', location.lat);
     setValue('longitude', location.lng);
     setValue('group_id', group_id);
     setValue('status', 1);
     const formData = getValues();
-    console.log(formData); 
+    console.log(formData);
     await createPlace(formData); 
-    // if (!showDatePicker) {
-    //   const emailListFormatted = emailList.map(async (email) => {
-    //     console.log(email.email);  
-    //     // await fetch('/api/sendMail', {
-    //     //   method: 'POST',
-    //     //   headers: {
-    //     //     'Content-Type': 'application/json',
-    //     //   },
-    //     //   body: JSON.stringify({ email: email.email }),
-    //     // });
-    //   });
-    // }
+    changeVisible();
   };
 
 
   const handleDateChange = (dates: any) => {
     dates = dates.map((date: any) => date.format("YYYY-MM-DD"));
     setValue('date', dates);
+    console.log(getValues());
   };
 
   const emailList = useGroupEmail(getValues('group_id'));
@@ -77,7 +69,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
       </div>
       <hr></hr>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('name')} register={register} />
+        <Input {...register('name')} register={register} ref={inputRef} />
         <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
         <GroupMenu groups={groups} setValue={setValue}/>
         <MailCheckbox onClick={handleMailCheckboxClick} show={showDatePicker}/>
@@ -97,7 +89,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
           />
         )}
         <div className="w-full flex justify-center">
-          <Button onClick={onClick} title="決定" />
+          <Button title="決定" />
         </div>
       </form>
     </div>

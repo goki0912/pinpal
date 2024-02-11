@@ -9,6 +9,7 @@ import CreatePlace from '../molecules/CreatePlace';
 import { animateScroll as scroll } from 'react-scroll';
 import CreatePlaceForm from './CreatePlaceForm';
 import { useEffect } from 'react';
+import { usePlaces } from '@/hooks/usePlaces';
 
 interface PlaceListProps {
     places: PlaceType[];
@@ -19,15 +20,13 @@ interface PlaceListProps {
     onPlaceSelect: (latitude: number, longitude: number) => void;
 }
 
-
-
 const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
+  const allPlace = usePlaces();
 
   const handleMap = (id: number) => {
-    console.log('Clicked place idmove:', id);
     setSelectedPlaceId(id);
     setShowAlert(true);
   };
@@ -47,7 +46,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
     setClicked(false);
     setShowAlert(false);
     onPlaceSelect(latitude, longitude)
-    console.log('Clicked place id:map', id,latitude,longitude)
     scroll.scrollToTop();
   }
   const onClosed = () => {
@@ -62,7 +60,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {places.map((place) => (
+      {allPlace.map((place) => (
         <Place
           key={place.id}
           place={place}
