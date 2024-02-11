@@ -9,6 +9,6 @@ export type Groups = {
     };
 }
 
-export type Email = {
+export type EmailType = {
     email: string;
 }

@@ -17,6 +17,8 @@ import { createPlace } from '@/pages/api/places';
 import { useSendMail } from '@/hooks/useSendMail';
 import { useGroupEmail } from '@/hooks/useGroupsEmail';
 import Email from '../molecules/Email';
+import { EmailType } from '@/types/groups';
+import { log } from 'console';
 
 
 interface CreatePlaceProps {
@@ -33,6 +35,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
+  const emailList = useGroupEmail(4);
 
   const onSubmit = async (data: any, event: any) => {
     event.preventDefault()
@@ -44,18 +47,26 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
     const formData = getValues();
     console.log(formData);
     await createPlace(formData); 
+    console.log(emailList);
+    emailList.forEach(async (email: EmailType) => {
+      console.log(email.email); 
+      await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.email }),
+      });
+    });
+
     changeVisible();
   };
-
 
   const handleDateChange = (dates: any) => {
     dates = dates.map((date: any) => date.format("YYYY-MM-DD"));
     setValue('date', dates);
     console.log(getValues());
   };
-
-  const emailList = useGroupEmail(getValues('group_id'));
-  console.log(emailList); 
   
   const handleMailCheckboxClick = async () => {
     setShowDatePicker(!showDatePicker);

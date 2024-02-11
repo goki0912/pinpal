@@ -7,22 +7,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const transporter = nodemailer.createTransport({
             host: 'localhost',
-            port: 8025,
+            port: 1025,
+            auth: {
+                user: 'test',
+                pass: 'test'
+            },
         });
 
         const mailOptions = {
-            from: 'admin@gmail.com',
+            from: '"Example" <example@example.com>',
             to: email,
             subject: 'イベント招待メールのお知らせ',
             text: 'テストメールです',
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).json({ error: error.message });
+        try {
+            const info = await transporter.sendMail(mailOptions);
+            console.log('Email sent: ' + info.response);
+            return res.status(200).json({ message: 'Email sent: ' + info.response });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ error: error });
         }
-        res.status(200).json({ message: 'Email sent: ' + info.response });
-        });
     } else {
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
