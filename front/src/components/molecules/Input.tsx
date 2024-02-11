@@ -3,12 +3,13 @@ interface InputProps {
   [key: string]: any;
 }
 
-const Input: React.FC<InputProps> = ({name, register, ...rest}) => {
+const Input: React.FC<InputProps> = ({name, register, ref,...rest}) => {
   return (
     <div className="m-5">
         <label className="block mb-2 text-sm font-medium text-gray-900">{name}</label>
       <input 
       type="text" 
+      ref={ref}
       id="small-input" 
       name={name} 
       {...register(name)}
