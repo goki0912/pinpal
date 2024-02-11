@@ -83,7 +83,6 @@ const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
     
             // グループの色情報を解析
             const color = JSON.parse(markerInfo.group?.color || '{}');
-            
     
             // マーカーを設置
             const marker = new google.maps.Marker({
