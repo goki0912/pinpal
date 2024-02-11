@@ -76,7 +76,7 @@ class PlaceSeeder extends Seeder
         place::create([
             'name' => 'USJ',
             'status' => 1,
-            'group_id' => 6,
+            'group_id' => 1,
             'latitude' => 34.985849,
             'longitude' => 135.758767,
             'date' => json_encode([
