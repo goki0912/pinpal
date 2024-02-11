@@ -27,9 +27,37 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/place'
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "三重県に旅行行く"
+                  status:
+                    type: integer
+                    example: 0
+                    description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
+                  group_id:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/group'
+                  latitude:
+                    type: number
+                    format: double
+                    description: 緯度
+                    example: 34.686555
+                  longitude:
+                    type: number
+                    format: double
+                    description: 経度
+                    example: 141.350784
+                  date:
+                    type: array
+                    example: ['2023-10-13', '2023-10-16']
+                    format: date
+             
         400:
           description: Invalid status value
           content: {}
@@ -54,54 +82,6 @@ paths:
         400:
           description: Invalid status value
           content: {}
-
-  /places/{id}:
-    put:
-      summary: 指定したIDのplaceを更新
-      tags:
-        - places
-      deprecated: false
-      parameters:
-        - name: id
-          in: path
-          description: place_id
-          required: true
-          schema:
-            type: integer
-          example: 1
-      requestBody:
-        description: 更新するplace情報
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              $ref: '#/components/schemas/place'
-      responses:
-        200:
-          description: "成功"
-        400:
-          description: Invalid status value
-          content: {}
-
-    delete:
-      summary: 指定したIDのplaceを削除
-      tags:
-        - places
-      deprecated: false
-      parameters:
-        - name: id
-          in: path
-          description: place_id
-          required: true
-          schema:
-            type: integer
-          example: 1
-      responses:
-        '204':
-          description: 'No Content'
-        '404':
-          description: 'Not Found'
 
   /places/{tag_id}:
     get:
@@ -167,6 +147,128 @@ paths:
           description: Invalid status value
           content: {}
 
+#=================== groups ======================#
+  /groups:
+    get:
+      summary: group一覧を取得
+      tags:
+        - groups
+      deprecated: false
+      responses:
+        200:
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/group'
+        400:
+          description: Invalid status value
+          content: {}
+      
+    post:
+      summary: グループを作成
+      tags:
+        - groups
+      deprecated: false
+      requestBody:
+        description: 作成するグループ情報
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "学科の友達！"
+                color:
+                  type: string
+                  example: "#FF0000"
+                email:
+                  type: array
+                  example: ["fskf@gmail.com", "fdsffg@gmail.com"] 
+
+      responses:
+        201:
+          description: "成功"
+        400:
+          description: Invalid status value
+          content: {}
+
+
+  /groups/{group_id}:
+    get:
+      summary: 指定したグループIDのグループを取得
+      tags:
+        - groups
+      deprecated: false
+      parameters:
+        - name: group_id
+          in: path
+          description: group_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/group'
+        400:
+          description: Invalid status value
+          content: {}
+
+    put:
+      summary: 指定したIDのgroupを更新
+      tags:
+        - groups
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: group_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        description: 更新するgroup情報
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/group'
+      responses:
+        200:
+          description: "成功"
+        400:
+          description: Invalid status value
+          content: {}
+
+    delete:
+      summary: 指定したIDのgroupを削除
+      tags:
+        - groups
+      deprecated: false
+      parameters:
+        - name: id
+          in: path
+          description: group_id
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: 'No Content'
+        '404':
+          description: 'Not Found'
 
 components:
   schemas:
@@ -183,7 +285,7 @@ components:
           type: integer
           example: 0
           description: "0:未着手, 1:予定割り当て済み, 2:達成済" 
-        tag_id:
+        group_id:
           type: integer
           example: 1
         latitude:
@@ -197,11 +299,11 @@ components:
           description: 経度
           example: 141.350784
         date:
-          type: string
-          example: '2023-10-13'
+          type: array
+          example: ['2023-10-13', '2023-10-16']
           format: date
 
-    tags:
+    group:
       type: object
       properties:
         id:
@@ -209,7 +311,20 @@ components:
           example: 1
         name:
           type: string
-          example: "一人旅"
+          example: "高校の同期"
         color:
           type: string
           example: "#FF0000"
+    
+    member:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        group_id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: "sdfk@gmail.com"

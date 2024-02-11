@@ -14,48 +14,75 @@ class PlaceSeeder extends Seeder
     public function run(): void
     {
         Place::create([
-            'name' => 'Place 1',
-            'status' => 0,
-            'tag_id' => 1,
-            'latitude' => '34.686555',
-            'longitude' => '135.52000',
-            'date' => '2024-02-15'
-        ]);
-
-        Place::create([
-            'name' => 'Place 2',
+            'name' => '代々木',
             'status' => 1,
-            'tag_id' => 2,
-            'latitude' => '43.0686',
-            'longitude' => '141.350784',
-            'date' => '2024-02-16'
+            'group_id' => 1,
+            'latitude' => 35.666160,
+            'longitude' => 139.695961,
+            'date' => json_encode([
+                "2024-02-15",
+                "2024-02-16"
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
         Place::create([
-            'name' => 'Place 3',
-            'status' => 2,
-            'tag_id' => 3,
-            'latitude' => '-34.686555',
-            'longitude' => '-135.52000',
-            'date' => '2024-03-17'
-        ]);
-
-        Place::create([
-            'name' => 'Place 4',
-            'status' => 0,
-            'tag_id' => 4,
-            'latitude' => '-43.0686',
-            'longitude' => '-141.350784',
-            'date' => '2024-02-18'
-        ]);
-
-        Place::create([
-            'name' => 'Place 5',
+            'name' => '渋谷ロフト',
             'status' => 1,
-            'tag_id' => 5,
-            'latitude' => '50.686555',
-            'longitude' => '100.52000',
-            'date' => '2024-02-19'
+            'group_id' => 2,
+            'latitude' => 35.660922,
+            'longitude' => 139.699770,
+            'date' => json_encode([
+                '2024-02-17',
+                '2024-02-18'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+        ]);
+
+        Place::create([
+            'name' => '表参道カフェ',
+            'status' => 1,
+            'group_id' => 3,
+            'latitude' => 35.665907,
+            'longitude' => 139.711274,
+            'date' => json_encode([
+                '2024-02-19',
+                '2024-02-20'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+        ]);
+
+        Place::create([
+            'name' => '清水寺',
+            'status' => 1,
+            'group_id' => 4,
+            'latitude' => 34.994647,
+            'longitude' => 135.784656,
+            'date' => json_encode([
+                '2023-02-15',
+                '2023-02-16'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+        ]);
+
+        Place::create([
+            'name' => '京都スイーツ',
+            'status' => 1,
+            'group_id' => 5,
+            'latitude' => 34.993283,
+            'longitude' => 135.763191,
+            'date' => json_encode([
+                '2024-03-15',
+                '2024-03-16'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+        ]);
+
+        place::create([
+            'name' => 'USJ',
+            'status' => 1,
+            'group_id' => 1,
+            'latitude' => 34.985849,
+            'longitude' => 135.758767,
+            'date' => json_encode([
+                '2024-03-17',
+                '2024-03-18'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
     }
