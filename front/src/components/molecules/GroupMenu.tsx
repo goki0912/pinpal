@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Group } from '@/types/group';
 import CreateGroupButton from '@/components/molecules/CreateGroupButton';
-
+import InputGroup from '@/components/organisms/InputGroup';
 interface GroupMenuProps {
   groups: any;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,6 +28,18 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
     setSelectedGroup(groupList); // 選択されたグループを更新
     setValue('group_id', groupList.id);
     setIsOpen(false); // ドロップダウンメニューを閉じる
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // モーダルを表示する関数
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // モーダルを閉じる関数
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -56,10 +68,14 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
               </button>
             </li>
           ))}
-          <CreateGroupButton onClick={() => onClick(group.id)} />
+          <CreateGroupButton onClick={showModal} />
         </ul>
       </div>
-
+      {isModalVisible && (
+        <div className="modal">
+          <InputGroup title="Group" subtitle="一緒に行くグループを作ろう" onClose={closeModal}/>
+        </div>
+      )}
     </div>
   );
 };
