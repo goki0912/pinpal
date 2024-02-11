@@ -18,7 +18,6 @@ interface GoogleMapProps {
 
 const GoogleMap: React.FC<GoogleMapProps> = ({center}) => {
     const {places} = usePlaces();
-    console.log(places);
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [mapSize, setMapSize] = useState({
