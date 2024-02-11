@@ -29,9 +29,12 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
   const [clicked,setClicked] = useState(false);
   const allPlace = usePlaces();
 
-  const handleMap = (id: number) => {
+  const handleMap = (id: number,status: number) => {
+    if(status === 2){
+      return;
+    }
     setShowAlert(true);
-    console.log('Clicked place idmove:', id);
+    console.log('Clicked place status:', status);
     setClicked(true);
     setSelectedPlaceId(id);
   };
@@ -69,11 +72,11 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {allPlace.places.map((place) => (
+      {places.map((place) => (
         <Place
           key={place.id}
           place={place}
-          onClick={()=>handleMap(place.id)}
+          onClick={()=>handleMap(place.id,place.status)}
           onMove={() => handleMoveClick(place.id,place.latitude,place.longitude)}
         />
       ))}
