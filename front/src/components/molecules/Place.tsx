@@ -27,7 +27,7 @@ const Place: React.FC<PlaceProps> = ({ place, onClick, onMove }) => {
     <>
       {
         place.group.name && (
-          <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={placeStyle} onClick={onMove}>
+          <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={placeStyle} >
             <div className="mr-2 w-1/6">
               <Checkbox onClick={onClick} color="#FFFFFF" />
             </div>

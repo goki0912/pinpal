@@ -60,8 +60,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
     console.log('Clicked handleMoveCl', id);
     onPlaceSelect(latitude, longitude)
     if(!showAlert){
-      console.log('showa', showAlert);
-      console.log('Scrolltop2000');
       scroll.scrollToTop({
         duration: 2000, // 500ミリ秒でスクロール
         smooth: "easeInOutQuart", // スムーズスクロールの種類（任意で選択）
