@@ -8,3 +8,7 @@ export type Groups = {
         a: number;
     };
 }
+
+export type EmailType = {
+    email: string;
+}

@@ -9,6 +9,7 @@ import CreatePlace from '../molecules/CreatePlace';
 import { animateScroll as scroll } from 'react-scroll';
 import CreatePlaceForm from './CreatePlaceForm';
 import { useEffect } from 'react';
+import { usePlaces } from '@/hooks/usePlaces';
 
 interface PlaceListProps {
     places: PlaceType[];
@@ -20,39 +21,59 @@ interface PlaceListProps {
 }
 
 
-
-const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChangeVisible,onPlaceSelect}) => {
+  const { places, refreshPlaces } = usePlaces();
+  const [placesList, setPlacesList] = useState<PlaceType[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>();
   const [clicked,setClicked] = useState(false);
+  const allPlace = usePlaces();
 
-  const handleMap = (id: number) => {
-    console.log('Clicked place idmove:', id);
-    setSelectedPlaceId(id);
+  const handleMap = (id: number,status: number) => {
     setShowAlert(true);
+    if(status === 2){
+      return;
+    }
+    setClicked(true);
+    // 地図の操作を行うなどの処理
+    setTimeout(() => setClicked(false), 500);
+    setSelectedPlaceId(id);
+    console.log('Clicked handleMap', status);
+
   };
 
   const handleConfirmYes = async () => {
     if (selectedPlaceId != null ) {
-      await useUpdateStatus(selectedPlaceId, 2);
       setShowAlert(false);
-      setClicked(false);
+      await useUpdateStatus(selectedPlaceId, 2);
+      refreshPlaces();
     }
   };
 
   const handleMoveClick = (id:number,latitude:number,longitude:number) => {
-    if(clicked){
+    if (showAlert) {
+      console.log("Alert is showing, skipping the move click action.");
+      console.log('Scrolltop');
+      return;
+  }else{
+
+    console.log('Clicked handleMoveCl', id);
+    onPlaceSelect(latitude, longitude)
+    if(!showAlert){
+      scroll.scrollToTop({
+        duration: 2000, // 500ミリ秒でスクロール
+        smooth: "easeInOutQuart", // スムーズスクロールの種類（任意で選択）
+      });
+    }
+    if(!clicked){
         return;
     }
-    setClicked(false);
     setShowAlert(false);
-    onPlaceSelect(latitude, longitude)
-    console.log('Clicked place id:map', id,latitude,longitude)
-    scroll.scrollToTop();
   }
+  }
+  
   const onClosed = () => {
     setShowAlert(false);
-    setClicked(false);
 }
 
   return (
@@ -66,7 +87,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, onClick, onMove , visible
         <Place
           key={place.id}
           place={place}
-          onClick={()=>handleMap(place.id)}
+          onClick={()=>handleMap(place.id,place.status)}
           onMove={() => handleMoveClick(place.id,place.latitude,place.longitude)}
         />
       ))}

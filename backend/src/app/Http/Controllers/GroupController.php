@@ -63,5 +63,10 @@ class GroupController extends Controller
             'message' => 'Group deleted successfully'
         ], 200);
     }
+    public function getGroupEmails($group_id)
+    {
+        $members = Member::where('group_id', $group_id)->select('email')->get();
+        return $members;
+    }
 
 }

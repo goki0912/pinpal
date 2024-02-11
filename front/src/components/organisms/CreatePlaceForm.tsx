@@ -14,43 +14,64 @@ import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { PlacesPost } from '@/types/placesPost';
 import { createPlace } from '@/pages/api/places';
+import { useSendMail } from '@/hooks/useSendMail';
+import { useGroupEmail } from '@/hooks/useGroupsEmail';
+import Email from '../molecules/Email';
+import { EmailType } from '@/types/groups';
+import { log } from 'console';
 
 
 interface CreatePlaceProps {
-  onClick: () => void;
+  changeVisible: () => void;
 }
 
-const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
+const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ changeVisible }) => {
   const groups = useGroups();
   const { control, handleSubmit, getValues, setValue, register } = useForm<PlacesPost>();
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleSelectPlace = (lat: number, lng: number) => {
     setLocation({ lat, lng });
   };
+  const emailList = useGroupEmail(4);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: any, event: any) => {
+    event.preventDefault()
     const group_id = getValues('group_id');
     setValue('latitude', location.lat);
     setValue('longitude', location.lng);
     setValue('group_id', group_id);
     setValue('status', 1);
     const formData = getValues();
+    console.log(formData);
     await createPlace(formData); 
-  };
+    console.log(emailList);
+    emailList.forEach(async (email: EmailType) => {
+      console.log(email.email); 
+      await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.email }),
+      });
+    });
 
+    changeVisible();
+  };
 
   const handleDateChange = (dates: any) => {
     dates = dates.map((date: any) => date.format("YYYY-MM-DD"));
     setValue('date', dates);
+    console.log(getValues());
   };
-
-  const handleMailCheckboxClick = () => {
+  
+  const handleMailCheckboxClick = async () => {
     setShowDatePicker(!showDatePicker);
     console.log(showDatePicker);
   };
-
 
   return (
     <div>
@@ -59,7 +80,7 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
       </div>
       <hr></hr>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('name')} register={register} />
+        <Input {...register('name')} register={register} ref={inputRef} />
         <Autocomplete name="住所：Place address" form_name="address" onSelectPlace={handleSelectPlace} />
         <GroupMenu groups={groups} setValue={setValue}/>
         <MailCheckbox onClick={handleMailCheckboxClick} show={showDatePicker}/>
@@ -78,8 +99,9 @@ const CreatePlaceForm: React.FC<CreatePlaceProps> = ({ onClick }) => {
             )}
           />
         )}
-        <div className="w-full flex justify-center">
-          <Button onClick={onClick} title="決定" />
+        <div className="w-full flex justify-center gap-x-7 px-6">
+          <Button title="決定" />
+          <button type="button" className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-2/5' onClick={changeVisible}>キャンセル</button>
         </div>
       </form>
     </div>
