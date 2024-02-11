@@ -69,7 +69,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
         <MenuButton onClick={() => console.log("Menu button clicked")} />
       </div>
       <hr></hr>
-      {allPlace.places.map((place) => (
+      {places.map((place) => (
         <Place
           key={place.id}
           place={place}

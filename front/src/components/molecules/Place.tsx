@@ -14,18 +14,27 @@ interface PlaceProps {
 const Place: React.FC<PlaceProps> = ({ place, onClick, onMove }) => {
   if (!place.group) return null;
   const color = JSON.parse(place.group.color);
+
+    // ステータスに基づいて動的にスタイルを設定
+    const placeStyle = {
+      backgroundColor: place.status === 2 ? '#C8C8C8' : `rgba(${color.r},${color.g},${color.b},${color.a})`,
+    };
+    const textStyle = {
+      textDecoration: place.status === 2 ? 'line-through' : 'none', // ステータスが2の場合に取り消し線を追加
+    };
+
   return (
     <>
       {
         place.group.name && (
-          <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={{ backgroundColor: place.status === 2 ? '#C8C8C8' : `rgba(${color.r},${color.g},${color.b},${color.a})` }} onClick={onMove}>
+          <div className="flex items-center text-white h-1 m-2 p-8 rounded-lg" style={placeStyle} onClick={onMove}>
             <div className="mr-2 w-1/6">
               <Checkbox onClick={onClick} color="#FFFFFF" />
             </div>
             <div className="w-5/6 items-center">
               <div className="flex">
                 <LocationIcon />
-                <span className="ml-3 text-xl font-medium">{place.name}</span>
+                <span className="ml-3 text-xl font-medium" style={textStyle}>{place.name}</span>
               </div>
               <div className="w-full flex items-center">
                 <span className="text-sm px-12">{place.group.name}</span>
