@@ -53,7 +53,7 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ groups, onChange, setValue }) => 
             aria-label="Selected group color"
           ></div>
         )}
-        <input onChange={(e) => onChange(e)} name="group_id" onClick={toggleDropdown} value={selectedGroup ? selectedGroup.name : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
+        <input onChange={(e) => console.log("test")} name="group_id" onClick={toggleDropdown} value={selectedGroup ? selectedGroup.name : ''} id="dropdownButton" className={"${isOpen ? 'w-4/5' : 'w-full'} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"} placeholder=' グループを選択' />
       </div>
       {/* ドロップダウンメニュー */}
       <div className={`${isOpen ? 'block' : 'hidden'} z-10 w-full bg-white divide-y divide-gray-100 rounded shadow`} id="dropdown">
