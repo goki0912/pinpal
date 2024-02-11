@@ -39,14 +39,12 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
     setTimeout(() => setClicked(false), 500);
     setSelectedPlaceId(id);
     console.log('Clicked handleMap', status);
-    console.log('Clicked handleMap', clicked);
 
   };
 
   const handleConfirmYes = async () => {
     if (selectedPlaceId != null ) {
       setShowAlert(false);
-      setClicked(false);
       await useUpdateStatus(selectedPlaceId, 2);
       refreshPlaces();
     }
@@ -66,7 +64,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
       console.log('Scrolltop2000');
       scroll.scrollToTop({
         duration: 2000, // 500ミリ秒でスクロール
-        delay: 200, // 遅延なし
         smooth: "easeInOutQuart", // スムーズスクロールの種類（任意で選択）
       });
     }
@@ -79,7 +76,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ onClick, onMove , visible, onChan
   
   const onClosed = () => {
     setShowAlert(false);
-    setClicked(false);
 }
 
   return (
