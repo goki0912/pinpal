@@ -85,5 +85,17 @@ class PlaceSeeder extends Seeder
             ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         ]);
 
+        place::create([
+            'name' => 'ディズニ-',
+            'status' => 1,
+            'group_id' => 6,
+            'latitude' => 35.63289640,
+            'longitude' => 139.88039430,
+            'date' => json_encode([
+                '2024-03-17',
+                '2024-03-18'
+            ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+        ]);
+
     }
 }

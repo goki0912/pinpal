@@ -3,9 +3,9 @@ interface InputProps {
   [key: string]: any;
 }
 
-const Input: React.FC<InputProps> = ({name, register, ref,...rest}) => {
+const Input: React.FC<InputProps> = ({name, register, ref ,...rest}) => {
   return (
-    <div className="m-5">
+    <div className="m-5" >
         <label className="block mb-2 text-sm font-medium text-gray-900">{name}</label>
       <input 
       type="text" 
