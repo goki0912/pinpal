@@ -76,6 +76,3 @@ npm run dev
 ## スライド
 - [canva](https://www.canva.com/design/DAF8dWVXeak/D2029S_YrV3HtDB5Sth0kg/edit?utm_content=DAF8dWVXeak&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [PDF](./docs/PinPal.pdf)
-
-## ハッカソン前チームビルディング&&ハッカソン後振り返り
-- [Googleスプレッドシート(閲覧のみ)](https://docs.google.com/spreadsheets/d/1uYrr6X83sxcWD94RlG50-QGZuh7iADuHC_KXd8RP8TM/edit?usp=sharing)
